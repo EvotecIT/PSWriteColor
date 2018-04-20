@@ -12,7 +12,8 @@ function Write-Color {
 	Original idea: Josh (https://stackoverflow.com/users/81769/josh)
 
 	version 0.31 (20th April 2018)
-	- Fixes
+	- Added Try/Catch for Write-Output (might need some additional work)
+	- Small change to parameters
 	version 0.3 (9th April 2018)
 	- added -ShowTime
 	- added -NoNewLine
