@@ -1,13 +1,15 @@
+# Install from Powershell Gallery https://www.powershellgallery.com/packages/PSWriteColor
+Install-Module -Name PSWriteColor
+# Alternatively use dout sourcing
+# ."$PSScriptRoot\Write-Color.ps1"
+
 Clear-Host
-. "C:\Support\GitHub\PSWriteColor\Write-Color.ps1" # Include Write-Color
 
 # Example 1
-
 Write-Color "[i] ", "Parameter in configuration of ", "EmailParameters.EmailFrom", " exists." -Color White, White, Green, White -ShowTime
 Write-Color "[i] ", "Parameter in configuration of ", "EmailParameters.EmailTo", " exists." -Color White, White, Green, White -ShowTime
 
 # Example 2
-
 Write-Color "[i] ", "I will send email soon...", "Get ready.." -Color White
 Write-Color "[i] ", "Sending email...." -Color White, White -NoNewLine
 <#
@@ -18,7 +20,6 @@ if ($true) {
 }
 
 # Example 3
-
 Write-Color -Text "Red ", "Green ", "Yellow " -Color Red, Green, Yellow
 
 Write-Color -Text "This is text in Green ",

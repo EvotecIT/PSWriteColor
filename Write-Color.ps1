@@ -1,16 +1,21 @@
 function Write-Color {
     <#
 	.SYNOPSIS
-	Write-Color is a wrapper aroun Write-Host.
+	Write-Color is a wrapper around Write-Host.
 	It provides:
 	- easy manipulation of colors,
 	- logging output to file (log)
 	- nice formatting options out of the box.
 	.DESCRIPTION
 	Author: przemyslaw.klys at evotec.pl
-	Original link: https://evotec.xyz/powershell-how-to-format-powershell-write-host-with-multiple-colors/
+	Project website: https://evotec.xyz/hub/scripts/write-color-ps1/
+	Project support: https://github.com/EvotecIT/PSWriteColor
+
 	Original idea: Josh (https://stackoverflow.com/users/81769/josh)
 
+	version 0.4.4 (25th April 2018)
+	- published as module
+	- fixed small issue
 	version 0.31 (20th April 2018)
 	- Added Try/Catch for Write-Output (might need some additional work)
 	- Small change to parameters
@@ -55,7 +60,7 @@ function Write-Color {
     #>
     param (
         [String[]]$Text,
-        [ConsoleColor[]]$Color = [ConsoleColor].White,
+        [ConsoleColor[]]$Color = "White",
         [int] $StartTab = 0,
         [int] $LinesBefore = 0,
         [int] $LinesAfter = 0,
@@ -65,6 +70,7 @@ function Write-Color {
         [switch] $NoNewLine
     )
     $DefaultColor = $Color[0]
+    if ($Text.Count -eq 0) { return }
     if ($LinesBefore -ne 0) {  for ($i = 0; $i -lt $LinesBefore; $i++) { Write-Host "`n" -NoNewline } } # Add empty line before
     if ($ShowTime) { Write-Host "[$([datetime]::Now.ToString($TimeFormat))]" -NoNewline} # Add Time before output
     if ($StartTab -ne 0) {  for ($i = 0; $i -lt $StartTab; $i++) { Write-Host "`t" -NoNewLine } }  # Add TABS before text
