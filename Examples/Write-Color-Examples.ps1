@@ -7,7 +7,7 @@
 if ($PSEdition -eq 'Core') {
     Import-Module PSWriteColor -SkipEditionCheck -Force
 } else {
-    Import-Moduile PSWriteColor -Force
+    Import-Module PSWriteColor -Force
 }
 
 # Example 1
