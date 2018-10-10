@@ -3,8 +3,12 @@
 # Alternatively use dout sourcing
 # ."$PSScriptRoot\Write-Color.ps1"
 
-Import-Module PSWriteColor
-Clear-Host
+
+if ($PSEdition -eq 'Core') {
+    Import-Module PSWriteColor -SkipEditionCheck -Force
+} else {
+    Import-Moduile PSWriteColor -Force
+}
 
 # Example 1
 Write-Color "[i] ", "Parameter in configuration of ", "EmailParameters.EmailFrom", " exists." -Color White, White, Green, White -ShowTime
@@ -44,7 +48,7 @@ Write-Color "9. ", "Press 9 to exit" -Color Yellow, Gray -LinesBefore 1
 Write-Color -LinesBefore 2 -Text "This little ", "message is ", "written to log ", "file as well." `
 				-Color Yellow, White, Green, Red, Red -LogFile "C:\testing.txt" -TimeFormat "yyyy-MM-dd HH:mm:ss"
 Write-Color -Text "This can get ", "handy if ", "want to display things, and log actions to file ", "at the same time." `
-				-Color Yellow, White, Green, Red, Red -LogFile "C:\testing.txt"
+				-Color Yellow, White, Green, Red, Red -LogFile "C:\testing.txt" -LogTime $false
 
 # Example 4 with backgrund colors and usage of aliases
 Write-Color -T "My text", " is ", "all colorful" -C Yellow, Red, Green -B Green, Green, Yellow

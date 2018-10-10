@@ -1,3 +1,10 @@
+
+if ($PSEdition -eq 'Core') {
+    Import-Module PSWriteColor -SkipEditionCheck -Force
+} else {
+    Import-Moduile PSWriteColor -Force
+}
+
 $line = '========================================================='
 
 do {

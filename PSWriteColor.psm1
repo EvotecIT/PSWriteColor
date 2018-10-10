@@ -85,6 +85,7 @@ function Write-Color {
         [int] $LinesAfter = 0,
         [alias ("L")] [string] $LogFile = "",
         [string] $TimeFormat = "yyyy-MM-dd HH:mm:ss",
+        [alias ('LogTimeStamp')][bool] $LogTime = $true,
         [switch] $ShowTime,
         [switch] $NoNewLine
     )
@@ -119,7 +120,11 @@ function Write-Color {
             $TextToFile += $Text[$i]
         }
         try {
-            Write-Output "[$([datetime]::Now.ToString($TimeFormat))]$TextToFile" | Out-File $LogFile -Encoding unicode -Append
+            if ($LogTime) {
+                Write-Output "[$([datetime]::Now.ToString($TimeFormat))]$TextToFile" | Out-File $LogFile -Encoding unicode -Append
+            } else {
+                Write-Output "$TextToFile" | Out-File $LogFile -Encoding unicode -Append
+            }
         } catch {
             $_.Exception
         }
