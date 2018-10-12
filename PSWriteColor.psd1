@@ -12,7 +12,7 @@
     RootModule        = 'PSWriteColor.psm1'
 
     # Version number of this module.
-    ModuleVersion     = '0.7'
+    ModuleVersion     = '0.71'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()

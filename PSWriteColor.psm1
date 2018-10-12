@@ -86,7 +86,7 @@ function Write-Color {
         [alias ("L")] [string] $LogFile = "",
         [string] $TimeFormat = "yyyy-MM-dd HH:mm:ss",
         [alias ('LogTimeStamp')][bool] $LogTime = $true,
-        [System.Text.Encoding] $Encoding = [System.Text.Encoding]::Unicode,
+        [ValidateSet("unknown", "string", "unicode", "bigendianunicode", "utf8", "utf7", "utf32", "ascii", "default", "oem")][string]$Encoding = 'Unicode',
         [switch] $ShowTime,
         [switch] $NoNewLine
     )
