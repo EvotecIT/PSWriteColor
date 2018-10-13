@@ -90,7 +90,6 @@ function Write-Color {
         - TimeFormat https://msdn.microsoft.com/en-us/library/8kb3ddd4.aspx
     #>
     [CmdletBinding()]
-    [Alias('wc')]
     param(
         [Parameter(Position = 0, Mandatory, ValueFromPipeline)]
         [Alias('Text')]
@@ -106,17 +105,17 @@ function Write-Color {
         $BackgroundColor,
 
         [Alias('StartTab')]
-        [ValidateRange(0, [int32]::MaxValue)]
+        [ValidateRange(0, 5)]
         [int]
-        $StartTab = 0,
+        $Indent = 0,
 
         [Alias('LinesBefore')]
-        [ValidateRange(0, [int32]::MaxValue)]
+        [ValidateRange(0, 10)]
         [int]
         $LeadingSpace = 0,
 
         [Alias('LinesAfter')]
-        [ValidateRange(0, [int32]::MaxValue)]
+        [ValidateRange(0, 10)]
         [int]
         $TrailingSpace = 0,
 
@@ -173,7 +172,7 @@ function Write-Color {
     }
     process {
         # Add TABS before text
-        Write-Host ("`t" * $StartTab) @BaseParams
+        Write-Host ("`t" * $Indent) @BaseParams
 
         if ($PSBoundParameters.ContainsKey('ForegroundColor') -or $PSBoundParameters.ContainsKey('BackgroundColor')) {
             # Fallback defaults if one of the values isn't set
