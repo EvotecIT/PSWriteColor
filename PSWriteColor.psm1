@@ -143,82 +143,87 @@ function Write-Color {
         [switch]
         $NoNewLine
     )
+    begin {
+        if ($PSBoundParameters.ContainsKey('LogFile')) { $StringBuilder = [System.Text.StringBuilder]::new() }
 
-    $DefaultColor = $ForegroundColor[0]
-    if (
-        $BackgroundColor.Count -gt 0 -and $BackgroundColor.Count -ne $ForegroundColor.Count -or
+        $InvalidParams = ($BackgroundColor.Count -gt 0 -and $BackgroundColor.Count -ne $ForegroundColor.Count) -or
         $ForegroundColor.Count -gt $Message.Count -or
         $BackgroundColor.Count -gt $Message.Count
-    ) {
-        $ErrorRecord = [System.Management.Automation.ErrorRecord]::new(
-            [System.Management.Automation.ParameterBindingException]::new(
-                'The number of provided Foreground and Background colors does not match, or more colors were provided than entered messages.'
-            ),
-            'InvalidColorMapping', # ErrorID
-            [System.Management.Automation.ErrorCategory]::InvalidArgument, # Category
-            $null # Target
-        )
 
-        $PSCmdlet.ThrowTerminatingError($ErrorRecord)
-    }
+        if ($InvalidParams) {
+            $ErrorRecord = [System.Management.Automation.ErrorRecord]::new(
+                [System.Management.Automation.ParameterBindingException]::new(
+                    'The number of provided Foreground and Background colors does not match, or more colors were provided than entered messages.'
+                ),
+                'InvalidColorMapping', # ErrorID
+                [System.Management.Automation.ErrorCategory]::InvalidArgument, # Category
+                $null # Target
+            )
 
-    # Add leading lines
-    Write-Host -Object ("`n" * $LeadingSpace) -NoNewline
-
-    if ($ShowTime) {
-        # Add Time before output
-        Write-Host -Object ('[{0}]' -f [datetime]::Now.ToString($DateTimeFormat)) -NoNewline
-    }
-
-    # Add TABS before text
-    Write-Host -Object ("`t" * $StartTab) -NoNewLine
-
-    if ($ForegroundColor.Count -ge $Message.Count) {
-        # The real deal coloring
-        for ($i = 0; $i -lt $Message.Length; $i++) {
-            $WriteParams = @{
-                ForegroundColor = $ForegroundColor[$i]
-                BackgroundColor = $BackgroundColor[$i]
-                NoNewLine       = $true
-            }
-
-            Write-Host -Object $Message[$i] @WriteParams
+            $PSCmdlet.ThrowTerminatingError($ErrorRecord)
         }
 
+        # Add leading lines
+        Write-Host ("`n" * $LeadingSpace) @BaseParams
+
+        if ($ShowTime) {
+            # Add Time before output
+            Write-Host ('[{0}]' -f [datetime]::Now.ToString($DateTimeFormat)) @BaseParams
+        }
     }
-    else {
-        if ($null -eq $BackgroundColor) {
-            for ($i = 0; $i -lt $ForegroundColor.Length ; $i++) { Write-Host -Object $Message[$i] -ForegroundColor $ForegroundColor[$i] -NoNewLine }
-            for ($i = $ForegroundColor.Length; $i -lt $Message.Length; $i++) { Write-Host -Object $Message[$i] -ForegroundColor $DefaultColor -NoNewLine }
+    process {
+        # Add TABS before text
+        Write-Host ("`t" * $StartTab) @BaseParams
+
+        if ($PSBoundParameters.ContainsKey('ForegroundColor') -or $PSBoundParameters.ContainsKey('BackgroundColor')) {
+            # Fallback defaults if one of the values isn't set
+            $LastForegroundColor = [console]::ForegroundColor
+            $LastForegroundColor = [console]::BackgroundColor
+
+            # The real deal coloring
+            for ($i = 0; $i -lt $Message.Count; $i++) {
+                $CurrentFGColor = if ($ForegroundColor[$i]) { $ForegroundColor[$i] } else { $LastForegroundColor }
+                $CurrentBGColor = if ($BackgroundColor[$i]) { $BackgroundColor[$i] } else { $LastBackgroundColor }
+
+                $WriteParams = @{
+                    NoNewLine       = $true
+                    ForegroundColor = $CurrentFGColor
+                    BackgroundColor = $CurrentBGColor
+                }
+
+                Write-Host $Message[$i] @WriteParams
+                if ($PSBoundParameters.ContainsKey('LogFile')) { $StringBuilder.Append($Message[$i]) > $null }
+
+                # Store last color set, in case next iteration doesn't have a set color
+                $LastForegroundColor, $LastBackgroundColor = $CurrentFGColor, $CurrentBGColor
+            }
         }
         else {
-            for ($i = 0; $i -lt $ForegroundColor.Length ; $i++) { Write-Host -Object $Message[$i] -ForegroundColor $ForegroundColor[$i] -BackgroundColor $BackgroundColor[$i] -NoNewLine }
-            for ($i = $ForegroundColor.Length; $i -lt $Message.Length; $i++) { Write-Host -Object $Message[$i] -ForegroundColor $DefaultColor -BackgroundColor $BackgroundColor[0] -NoNewLine }
+            Write-Host $Message -NoNewline
         }
-    }
 
-    if ($NoNewLine -eq $true) { Write-Host -NoNewline } else { Write-Host } # Support for no new line
-    if ($TrailingSpace -ne 0) {  for ($i = 0; $i -lt $TrailingSpace; $i++) { Write-Host -Object "`n" } }  # Add empty line after
-    if ($LogFile -ne "") {
-        # Save to file
-        $TextToFile = ""
-        for ($i = 0; $i -lt $Message.Length; $i++) {
-            $TextToFile += $Message[$i]
+        if (-not $NoNewLine) {
+            Write-Host
         }
-        try {
-            if ($NoLogTimestamp) {
-                Write-Output -InputObject "$TextToFile" |
-                    Add-Content -Path $LogFile -Encoding $OutputEncoding
+
+        Write-Host ("`n" * $TrailingSpace) # Add empty line after
+    }
+    end {
+        if ($PSBoundParameters.ContainsKey('LogFile')) {
+            # Save to file
+
+            try {
+                if ($NoLogTimestamp) {
+                    $StringBuilder.ToString() | Add-Content -Path $LogFile -Encoding $OutputEncoding
+                }
+                else {
+                    "[{0}]{1}" -f [datetime]::Now.ToString($DateTimeFormat), $StringBuilder.ToString() |
+                        Add-Content -Path $LogFile -Encoding $OutputEncoding
+                }
             }
-            else {
-                Write-Output -InputObject "[$([datetime]::Now.ToString($DateTimeFormat))]$TextToFile" |
-                    Add-Content -Path $LogFile -Encoding $OutputEncoding
+            catch {
+                $PSCmdlet.WriteError($_)
             }
-        }
-        catch {
-            $PSCmdlet.WriteError($_)
         }
     }
 }
-
-Export-ModuleMember -function 'Write-Color' -Alias 'wc'
