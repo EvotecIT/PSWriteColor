@@ -1,5 +1,4 @@
 function Write-Color {
-    [CmdletBinding()]
     <#
 	.SYNOPSIS
 	Write-Color is a wrapper around Write-Host.
@@ -76,6 +75,7 @@ function Write-Color {
     wc -text "my text" -c red
 
     #>
+    [CmdletBinding()]
     [Alias("wc")]
     param (
         [alias ("T")] [String[]]$Text,
