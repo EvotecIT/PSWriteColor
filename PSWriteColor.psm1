@@ -1,4 +1,5 @@
 function Write-Color {
+    [CmdletBinding()]
     <#
 	.SYNOPSIS
 	Write-Color is a wrapper around Write-Host.
