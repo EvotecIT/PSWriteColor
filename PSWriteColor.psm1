@@ -116,7 +116,7 @@ function Write-Color {
         }
     }
     if ($NoNewLine -eq $true) { Write-Host -NoNewline } else { Write-Host } # Support for no new line
-    if ($LinesAfter -ne 0) {  for ($i = 0; $i -lt $LinesAfter; $i++) { Write-Host -Object "`n" } }  # Add empty line after
+    if ($LinesAfter -ne 0) {  for ($i = 0; $i -lt $LinesAfter; $i++) { Write-Host -Object "`n" -NoNewline } }  # Add empty line after
     if ($LogFile -ne "") {
         # Save to file
         $TextToFile = ""
