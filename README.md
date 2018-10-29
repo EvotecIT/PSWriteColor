@@ -12,11 +12,10 @@ Install-Module -Name "PSWriteColor"
 
 # Examples
 
+![Image](https://evotec.xyz/wp-content/uploads/2018/05/img_5af07118e9f87.png)
+
+
 ```powershell
-# Install from Powershell Gallery https://www.powershellgallery.com/packages/PSWriteColor
-# Install-Module -Name PSWriteColor
-Import-Module PSWriteColor
-Clear-Host
 # Example 1
 Write-Color "[i] ", "Parameter in configuration of ", "EmailParameters.EmailFrom", " exists." -Color White, White, Green, White -ShowTime
 Write-Color "[i] ", "Parameter in configuration of ", "EmailParameters.EmailTo", " exists." -Color White, White, Green, White -ShowTime
@@ -56,5 +55,3 @@ Write-Color -T "My text", " is ", "all colorful" -C Yellow, Red, Green -B Red, G
 # Example 5 with aliases
 wc -t "my text" -C Red
 ```
-
-![Image](https://evotec.xyz/wp-content/uploads/2018/05/img_5af07118e9f87.png)
