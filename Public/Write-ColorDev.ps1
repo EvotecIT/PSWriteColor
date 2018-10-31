@@ -1,4 +1,4 @@
-function Write-Color2 {
+function Write-ColorDev {
     <#
 	.SYNOPSIS
         Write-Color is a wrapper around Write-Host.
