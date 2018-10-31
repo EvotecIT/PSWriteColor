@@ -63,7 +63,7 @@
             ProjectUri   = 'https://evotec.xyz/hub/scripts/pswritecolor/'
 
             # A URL to an icon representing this module.
-            # IconUri = ''
+            IconUri      = 'https://evotec.xyz/wp-content/uploads/2018/10/PSWriteColor.png'
 
             # ReleaseNotes of this module
             ReleaseNotes = '- published as module
