@@ -1,4 +1,4 @@
-function Write-Color {
+function Write-Color2 {
     <#
 	.SYNOPSIS
         Write-Color is a wrapper around Write-Host.
@@ -196,8 +196,7 @@ function Write-Color {
                 # Store last color set, in case next iteration doesn't have a set color
                 $LastForegroundColor, $LastBackgroundColor = $CurrentFGColor, $CurrentBGColor
             }
-        }
-        else {
+        } else {
             Write-Host $Message -NoNewline
         }
 
@@ -214,13 +213,11 @@ function Write-Color {
             try {
                 if ($NoLogTimestamp) {
                     $StringBuilder.ToString() | Add-Content -Path $LogFile -Encoding $OutputEncoding
-                }
-                else {
+                } else {
                     "[{0}]{1}" -f [datetime]::Now.ToString($DateTimeFormat), $StringBuilder.ToString() |
                         Add-Content -Path $LogFile -Encoding $OutputEncoding
                 }
-            }
-            catch {
+            } catch {
                 $PSCmdlet.WriteError($_)
             }
         }
