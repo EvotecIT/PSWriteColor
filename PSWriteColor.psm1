@@ -101,14 +101,17 @@ function Write-Color {
         # the real deal coloring
         if ($BackGroundColor -eq $null) {
             for ($i = 0; $i -lt $Text.Length; $i++) { Write-Host -Object $Text[$i] -ForegroundColor $Color[$i] -NoNewLine }
-        } else {
+        }
+        else {
             for ($i = 0; $i -lt $Text.Length; $i++) { Write-Host -Object $Text[$i] -ForegroundColor $Color[$i] -BackgroundColor $BackGroundColor[$i] -NoNewLine }
         }
-    } else {
+    }
+    else {
         if ($BackGroundColor -eq $null) {
             for ($i = 0; $i -lt $Color.Length ; $i++) { Write-Host -Object $Text[$i] -ForegroundColor $Color[$i] -NoNewLine }
             for ($i = $Color.Length; $i -lt $Text.Length; $i++) { Write-Host -Object $Text[$i] -ForegroundColor $DefaultColor -NoNewLine }
-        } else {
+        }
+        else {
             for ($i = 0; $i -lt $Color.Length ; $i++) { Write-Host -Object $Text[$i] -ForegroundColor $Color[$i] -BackgroundColor $BackGroundColor[$i] -NoNewLine }
             for ($i = $Color.Length; $i -lt $Text.Length; $i++) { Write-Host -Object $Text[$i] -ForegroundColor $DefaultColor -BackgroundColor $BackGroundColor[0] -NoNewLine }
         }
@@ -124,10 +127,12 @@ function Write-Color {
         try {
             if ($LogTime) {
                 Write-Output -InputObject "[$([datetime]::Now.ToString($TimeFormat))]$TextToFile" | Out-File -FilePath $LogFile -Encoding $Encoding -Append
-            } else {
+            }
+            else {
                 Write-Output -InputObject "$TextToFile" | Out-File -FilePath $LogFile -Encoding $Encoding -Append
             }
-        } catch {
+        }
+        catch {
             $_.Exception
         }
     }
