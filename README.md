@@ -7,7 +7,7 @@ Write-Color is a wrapper around Write-Host allowing you to create nice looking s
 # Quick install
 
 ```powershell
-Install-Module -Name "PSWriteColor" 
+Install-Module -Name "PSWriteColor"
 ```
 
 # Examples
@@ -19,6 +19,9 @@ Install-Module -Name "PSWriteColor"
 # Example 1
 Write-Color "[i] ", "Parameter in configuration of ", "EmailParameters.EmailFrom", " exists." -Color White, White, Green, White -ShowTime
 Write-Color "[i] ", "Parameter in configuration of ", "EmailParameters.EmailTo", " exists." -Color White, White, Green, White -ShowTime
+```
+
+```powershell
 # Example 2
 Write-Color "[i] ", "I will send email soon...", "Get ready.." -Color White
 Write-Color "[i] ", "Sending email...." -Color White, White -NoNewLine
@@ -28,6 +31,9 @@ Write-Color "[i] ", "Sending email...." -Color White, White -NoNewLine
 if ($true) {
     Write-Color -Text "OK" -Color Green
 }
+```
+
+```powershell
 # Example 3
 Write-Color -Text "Red ", "Green ", "Yellow " -Color Red, Green, Yellow
 Write-Color -Text "This is text in Green ",
@@ -49,6 +55,9 @@ Write-Color -LinesBefore 2 -Text "This little ", "message is ", "written to log 
         -Color Yellow, White, Green, Red, Red -LogFile "C:\testing.txt" -TimeFormat "yyyy-MM-dd HH:mm:ss"
 Write-Color -Text "This can get ", "handy if ", "want to display things, and log actions to file ", "at the same time." `
         -Color Yellow, White, Green, Red, Red -LogFile "C:\testing.txt"
+```
+
+```powershell
 # Example 4 with backgrund colors and usage of aliases
 Write-Color -T "My text", " is ", "all colorful" -C Yellow, Red, Green -B Green, Green, Yellow
 Write-Color -T "My text", " is ", "all colorful" -C Yellow, Red, Green -B Red, Green, Green
