@@ -12,7 +12,7 @@
     RootModule        = 'PSWriteColor.psm1'
 
     # Version number of this module.
-    ModuleVersion     = '0.75'
+    ModuleVersion     = '0.76'
 
     # Supported PSEditions
     #CompatiblePSEditions = @('Desktop', 'Core')
@@ -49,7 +49,7 @@
     FunctionsToExport = @('Write-Color', 'Write-ColorDev')
 
     # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
-    AliasesToExport   = @('wc')
+    #AliasesToExport   = @('wc')
 
     # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
     PrivateData       = @{
@@ -66,11 +66,8 @@
             IconUri      = 'https://evotec.xyz/wp-content/uploads/2018/10/PSWriteColor.png'
 
             # ReleaseNotes of this module
-            ReleaseNotes = '- published as module
-- fixed small issues
-- added backgroundcolor
-- added aliases T/B/C to shorter code
-- added alias to function (can be used with "WC")'
+            ReleaseNotes = '- Removed alias WC
+- last version supported on older PowerShell then 5.1'
 
         } # End of PSData hashtable
 

@@ -90,7 +90,6 @@ function Write-Color {
         - TimeFormat https://msdn.microsoft.com/en-us/library/8kb3ddd4.aspx
     #>
     [CmdletBinding()]
-    [Alias("wc")]
     param (
         [alias ('T')] [String[]]$Text,
         [alias ('C', 'ForegroundColor', 'FGC')] [ConsoleColor[]]$Color = [ConsoleColor]::White,
