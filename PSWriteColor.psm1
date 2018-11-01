@@ -19,7 +19,7 @@ Foreach ($import in @($Assembly)) {
     }
 }
 
-Export-ModuleMember -function 'Write-Color', 'Write-ColorDev' -Alias 'wc'
+Export-ModuleMember -function 'Write-Color', 'Write-ColorDev' # -Alias 'wc'
 
 [string] $ManifestFile = '{0}.psd1' -f (Get-Item $PSCommandPath).BaseName;
 $ManifestPathAndFile = Join-Path -Path $PSScriptRoot -ChildPath $ManifestFile;
