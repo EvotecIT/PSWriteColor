@@ -12,7 +12,7 @@
 RootModule = 'PSWriteColor.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.84'
+ModuleVersion = '0.85'
 
 # Supported PSEditions
 CompatiblePSEditions = 'Desktop', 'Core'
@@ -100,7 +100,7 @@ PrivateData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
         Tags = 'Write-Host', 'Color', 'Colour', 'Terminal', 'Console', 'Logging', 'Prompt', 
-               'Write-Color'
+               'Write-Color', 'Windows', 'MacOS', 'Linux'
 
         # A URL to the license for this module.
         # LicenseUri = ''
