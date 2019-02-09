@@ -89,6 +89,7 @@ function Write-Color {
         Additional Notes:
         - TimeFormat https://msdn.microsoft.com/en-us/library/8kb3ddd4.aspx
     #>
+    [alias('Write-Colour')]
     [CmdletBinding()]
     param (
         [alias ('T')] [String[]]$Text,
