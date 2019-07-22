@@ -1,3 +1,22 @@
+<p align="center">
+  <a href="https://www.powershellgallery.com/packages/PSWriteColor"><img src="https://img.shields.io/powershellgallery/v/PSWriteColor.svg"></a>
+  <a href="https://www.powershellgallery.com/packages/PSWriteColor"><img src="https://img.shields.io/powershellgallery/vpre/PSWriteColor.svg?label=powershell%20gallery%20preview&colorB=yellow"></a>
+  <a href="https://github.com/EvotecIT/PSWriteColor"><img src="https://img.shields.io/github/license/EvotecIT/PSWriteColor.svg"></a>
+</p>
+
+<p align="center">
+  <a href="https://www.powershellgallery.com/packages/PSWriteColor"><img src="https://img.shields.io/powershellgallery/p/PSWriteColor.svg"></a>
+  <a href="https://github.com/EvotecIT/PSWriteColor"><img src="https://img.shields.io/github/languages/top/evotecit/PSWriteColor.svg"></a>
+  <a href="https://github.com/EvotecIT/PSWriteColor"><img src="https://img.shields.io/github/languages/code-size/evotecit/PSWriteColor.svg"></a>
+  <a href="https://github.com/EvotecIT/PSWriteColor"><img src="https://img.shields.io/powershellgallery/dt/PSWriteColor.svg"></a>
+</p>
+
+<p align="center">
+  <a href="https://twitter.com/PrzemyslawKlys"><img src="https://img.shields.io/twitter/follow/PrzemyslawKlys.svg?label=Twitter%20%40PrzemyslawKlys&style=social"></a>
+  <a href="https://evotec.xyz/hub"><img src="https://img.shields.io/badge/Blog-evotec.xyz-2A6496.svg"></a>
+  <a href="https://www.linkedin.com/in/pklys"><img src="https://img.shields.io/badge/LinkedIn-pklys-0077B5.svg?logo=LinkedIn"></a>
+</p>
+
 # PSWriteColor - PowerShell module
 Full Description for this project at: https://evotec.xyz/hub/scripts/pswritecolor/
 
