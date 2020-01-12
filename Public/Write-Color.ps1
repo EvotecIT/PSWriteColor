@@ -52,40 +52,6 @@ function Write-Color {
     wc -text "my text" -c red
 
     .NOTES
-        CHANGELOG
-
-        Version 0.5 (25th April 2018)
-        -----------
-        - Added backgroundcolor
-        - Added aliases T/B/C to shorter code
-        - Added alias to function (can be used with "WC")
-        - Fixes to module publishing
-
-        Version 0.4.0-0.4.9 (25th April 2018)
-        -------------------
-        - Published as module
-        - Fixed small issues
-
-        Version 0.31 (20th April 2018)
-        ------------
-        - Added Try/Catch for Write-Output (might need some additional work)
-        - Small change to parameters
-
-        Version 0.3 (9th April 2018)
-        -----------
-        - Added -ShowTime
-        - Added -NoNewLine
-        - Added function description
-        - Changed some formatting
-
-        Version 0.2
-        -----------
-        - Added logging to file
-
-        Version 0.1
-        -----------
-        - First draft
-
         Additional Notes:
         - TimeFormat https://msdn.microsoft.com/en-us/library/8kb3ddd4.aspx
     #>
@@ -107,7 +73,10 @@ function Write-Color {
         [switch] $NoNewLine
     )
     $DefaultColor = $Color[0]
-    if ($null -ne $BackGroundColor -and $BackGroundColor.Count -ne $Color.Count) { Write-Error "Colors, BackGroundColors parameters count doesn't match. Terminated." ; return }
+    if ($null -ne $BackGroundColor -and $BackGroundColor.Count -ne $Color.Count) {
+        Write-Error "Colors, BackGroundColors parameters count doesn't match. Terminated."
+        return
+    }
     #if ($Text.Count -eq 0) { return }
     if ($LinesBefore -ne 0) { for ($i = 0; $i -lt $LinesBefore; $i++) { Write-Host -Object "`n" -NoNewline } } # Add empty line before
     if ($StartTab -ne 0) { for ($i = 0; $i -lt $StartTab; $i++) { Write-Host -Object "`t" -NoNewLine } }  # Add TABS before text
@@ -133,7 +102,7 @@ function Write-Color {
     }
     if ($NoNewLine -eq $true) { Write-Host -NoNewline } else { Write-Host } # Support for no new line
     if ($LinesAfter -ne 0) { for ($i = 0; $i -lt $LinesAfter; $i++) { Write-Host -Object "`n" -NoNewline } }  # Add empty line after
-    if ($Text.Count -ne 0 -and $LogFile -ne "") {
+    if ($Text.Count -and $LogFile) {
         # Save to file
         $TextToFile = ""
         for ($i = 0; $i -lt $Text.Length; $i++) {
@@ -141,12 +110,12 @@ function Write-Color {
         }
         try {
             if ($LogTime) {
-                Write-Output -InputObject "[$([datetime]::Now.ToString($DateTimeFormat))]$TextToFile" | Out-File -FilePath $LogFile -Encoding $Encoding -Append
+                "[$([datetime]::Now.ToString($DateTimeFormat))]$TextToFile" | Out-File -FilePath $LogFile -Encoding $Encoding -Append -ErrorAction Stop
             } else {
-                Write-Output -InputObject "$TextToFile" | Out-File -FilePath $LogFile -Encoding $Encoding -Append
+                "$TextToFile" | Out-File -FilePath $LogFile -Encoding $Encoding -Append -ErrorAction Stop
             }
         } catch {
-            $_.Exception
+            $PSCmdlet.WriteError($_)
         }
     }
 }

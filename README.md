@@ -8,7 +8,7 @@
   <a href="https://www.powershellgallery.com/packages/PSWriteColor"><img src="https://img.shields.io/powershellgallery/p/PSWriteColor.svg"></a>
   <a href="https://github.com/EvotecIT/PSWriteColor"><img src="https://img.shields.io/github/languages/top/evotecit/PSWriteColor.svg"></a>
   <a href="https://github.com/EvotecIT/PSWriteColor"><img src="https://img.shields.io/github/languages/code-size/evotecit/PSWriteColor.svg"></a>
-  <a href="https://github.com/EvotecIT/PSWriteColor"><img src="https://img.shields.io/powershellgallery/dt/PSWriteColor.svg"></a>
+  <a href="https://www.powershellgallery.com/packages/PSWriteColor"><img src="https://img.shields.io/powershellgallery/dt/PSWriteColor.svg"></a>
 </p>
 
 <p align="center">
@@ -18,10 +18,17 @@
 </p>
 
 # PSWriteColor - PowerShell module
+
 Full Description for this project at: https://evotec.xyz/hub/scripts/pswritecolor/
 
 # Description:
+
 Write-Color is a wrapper around Write-Host allowing you to create nice looking scripts, with colorized output.
+
+## ChangeLog
+
+- 0.87 - 2020.01.12
+  - Throw errors when can't save to file with LogFile. Before it would use Write-Output which could deliver unpredictable results
 
 # Quick install
 
