@@ -19,16 +19,18 @@
 
 # PSWriteColor - PowerShell module
 
-Full Description for this project at: https://evotec.xyz/hub/scripts/pswritecolor/
+Full Description for this project at my [Evotec website](https://evotec.xyz/hub/scripts/pswritecolor/)
 
-# Description:
+# Description
 
 Write-Color is a wrapper around Write-Host allowing you to create nice looking scripts, with colorized output.
 
 ## ChangeLog
 
-- 0.87 - 2020.01.12
-  - Throw errors when can't save to file with LogFile. Before it would use Write-Output which could deliver unpredictable results
+- 0.87.1 - 2020.06.19
+  - [x] Resolves issue with nuget download (changed version from 0.87 to 0.87.1). As per [link](https://devblogs.microsoft.com/devops/versioning-nuget-packages-cd-1/) it requires version to be longer.
+- 0.87.0 - 2020.01.12
+  - [x] Throw errors when can't save to file with LogFile. Before it would use Write-Output which could deliver unpredictable results
 
 # Quick install
 
@@ -39,7 +41,6 @@ Install-Module -Name "PSWriteColor"
 # Examples
 
 ![Image](https://evotec.xyz/wp-content/uploads/2018/05/img_5af07118e9f87.png)
-
 
 ```powershell
 # Example 1
