@@ -27,6 +27,9 @@ Write-Color is a wrapper around Write-Host allowing you to create nice looking s
 
 ## ChangeLog
 
+- 0.87.2 - 2020.07.20
+  - [x] Added a space for LogTime and ShowTime
+  - [x] Signed module
 - 0.87.1 - 2020.06.19
   - [x] Resolves issue with nuget download (changed version from 0.87 to 0.87.1). As per [link](https://devblogs.microsoft.com/devops/versioning-nuget-packages-cd-1/) it requires version to be longer.
 - 0.87.0 - 2020.01.12
