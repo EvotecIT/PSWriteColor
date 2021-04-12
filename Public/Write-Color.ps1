@@ -68,6 +68,7 @@ function Write-Color {
         [alias ('L')] [string] $LogFile = '',
         [Alias('DateFormat', 'TimeFormat')][string] $DateTimeFormat = 'yyyy-MM-dd HH:mm:ss',
         [alias ('LogTimeStamp')][bool] $LogTime = $true,
+        [int] $LogRetry = 2,
         [ValidateSet('unknown', 'string', 'unicode', 'bigendianunicode', 'utf8', 'utf7', 'utf32', 'ascii', 'default', 'oem')][string]$Encoding = 'Unicode',
         [switch] $ShowTime,
         [switch] $NoNewLine
@@ -108,14 +109,24 @@ function Write-Color {
         for ($i = 0; $i -lt $Text.Length; $i++) {
             $TextToFile += $Text[$i]
         }
-        try {
-            if ($LogTime) {
-                "[$([datetime]::Now.ToString($DateTimeFormat))] $TextToFile" | Out-File -FilePath $LogFile -Encoding $Encoding -Append -ErrorAction Stop
-            } else {
-                "$TextToFile" | Out-File -FilePath $LogFile -Encoding $Encoding -Append -ErrorAction Stop
+        $Saved = $false
+        $Retry = 0
+        Do {
+            $Retry++
+            try {
+                if ($LogTime) {
+                    "[$([datetime]::Now.ToString($DateTimeFormat))] $TextToFile" | Out-File -FilePath $LogFile -Encoding $Encoding -Append -ErrorAction Stop -WhatIf:$false
+                } else {
+                    "$TextToFile" | Out-File -FilePath $LogFile -Encoding $Encoding -Append -ErrorAction Stop -WhatIf:$false
+                }
+                $Saved = $true
+            } catch {
+                if ($Saved -eq $false -and $Retry -eq $LogRetry) {
+                    $PSCmdlet.WriteError($_)
+                } else {
+                    Write-Warning "Write-Color - Couldn't write to log file $($_.Exception.Message). Retrying... ($Retry/$LogRetry)"
+                }
             }
-        } catch {
-            $PSCmdlet.WriteError($_)
-        }
+        } Until ($Saved -eq $true -or $Retry -ge $LogRetry)
     }
 }
