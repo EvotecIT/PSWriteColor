@@ -27,6 +27,11 @@ Write-Color is a wrapper around Write-Host allowing you to create nice looking s
 
 ## ChangeLog
 
+- 1.0.0
+  - 📃 Converted tabs to spaces in code (no difference in output)
+  - 📃 Updated documentation
+  - 💡 Added `NoConsoleOutput` to allow only writting to file, and skipping console output
+  - 🐛 Removed throwing exceptions when couldn't write to file (`Write-Warning` will be triggered instead)
 - 0.87.3 - 2021.04.12
   - 💡 Disabled `WhatIf` functionality for Out-File which would prevent logging to file
   - 💡 Added `LogRetry` (2) to provide option to retry logging to file up to X number of times in case issue with saving to file occurs (race condition)
