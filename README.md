@@ -34,7 +34,7 @@ To become a sponsor, you can choose from the following options:
 
  - [Become a sponsor via GitHub Sponsors :heart:](https://github.com/sponsors/PrzemyslawKlys)
  - [Become a sponsor via PayPal :heart:](https://paypal.me/PrzemyslawKlys)
- -
+
 Your sponsorship is completely optional and not required for using this project.
 We want this project to remain open-source and available for anyone to use for free,
 regardless of whether they choose to sponsor it or not.
