@@ -1,8 +1,4 @@
-if ($PSEdition -eq 'Core') {
-    Import-Module PSWriteColor -SkipEditionCheck -Force
-} else {
-    Import-Module PSWriteColor -Force
-}
+Import-Module .\PSWriteColor.psd1 -Force
 
 # Example 1
 Write-Color "[i] ", "Parameter in configuration of ", "EmailParameters.EmailFrom", " exists." -Color White, White, Green, White -ShowTime

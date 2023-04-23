@@ -1,9 +1,4 @@
-
-if ($PSEdition -eq 'Core') {
-    Import-Module PSWriteColor -SkipEditionCheck -Force
-} else {
-    Import-Module PSWriteColor -Force
-}
+Import-Module .\PSWriteColor.psd1 -Force
 
 $line = '========================================================='
 
@@ -34,13 +29,13 @@ do {
     Write-Color ' 0', ' - ', 'Quit' -C Yellow, White, Green -LinesAfter 1
     Write-Color $line
 
-    $input = Read-Host 'Select'
+    $inputData = Read-Host 'Select'
 
-    Switch ($input) {
+    Switch ($inputData) {
         0 { Exit }
         default {
             Write-Color 'Not implemented...', ' Press any key to continue!' -Color Red, Yellow -LinesBefore 1
             [void][System.Console]::ReadKey($true)
         }
     }
-} while ($input -ne '0')
+} while ($inputData -ne '0')
