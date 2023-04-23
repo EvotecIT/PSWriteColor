@@ -27,7 +27,7 @@ Write-Color is a wrapper around Write-Host allowing you to create nice looking s
 
 ## ChangeLog
 
-- 1.0.0
+- 1.0.0 - 2023.04.23
   - 📃 Converted tabs to spaces in code (no difference in output)
   - 📃 Updated documentation
   - 💡 Added `NoConsoleOutput` to allow only writting to file, and skipping console output
