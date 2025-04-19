@@ -26,9 +26,6 @@ function Write-Color {
     If there are more strings than colors it will start from the beginning.
     Available colors are: Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White
 
-    .PARAMETER HorizontalCenter
-    Calculates the window width and inserts spaces to make the text center according to the present width of the powershell window. Default is false.
-
     .PARAMETER StartTab
     Number of tabs to add before text. Default is 0.
 
@@ -64,6 +61,9 @@ function Write-Color {
 
     .PARAMETER NoConsoleOutput
     Switch to not output to console. Default all output goes to console.
+
+    .PARAMETER HorizontalCenter
+    Calculates the window width and inserts spaces to make the text center according to the present width of the powershell window. Default is false.
 
     .EXAMPLE
     Write-Color -Text "Red ", "Green ", "Yellow " -Color Red,Green,Yellow
