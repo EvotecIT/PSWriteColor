@@ -115,7 +115,6 @@ function Write-Color {
         [alias ('T')] [String[]]$Text,
         [alias ('C', 'ForegroundColor', 'FGC')] [ConsoleColor[]]$Color = [ConsoleColor]::White,
         [alias ('B', 'BGC')] [ConsoleColor[]]$BackGroundColor = $null,
-        [bool] $HorizontalCenter = $False,
         [alias ('Indent')][int] $StartTab = 0,
         [int] $LinesBefore = 0,
         [int] $LinesAfter = 0,
@@ -127,6 +126,7 @@ function Write-Color {
         [ValidateSet('unknown', 'string', 'unicode', 'bigendianunicode', 'utf8', 'utf7', 'utf32', 'ascii', 'default', 'oem')][string]$Encoding = 'Unicode',
         [switch] $ShowTime,
         [switch] $NoNewLine,
+        [switch] $HorizontalCenter,
         [alias('HideConsole')][switch] $NoConsoleOutput
     )
     if (-not $NoConsoleOutput) {
