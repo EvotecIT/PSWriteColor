@@ -136,15 +136,15 @@ function Write-Color {
             return
         }
         if ($LinesBefore -ne 0) { for ($i = 0; $i -lt $LinesBefore; $i++) { Write-Host -Object "`n" -NoNewline } } # Add empty line before
-                If ($HorizontalCenter) {
+        if ($HorizontalCenter) {
             $MessageLength = 0
-            ForEach ($Value in $Text) {
+            foreach ($Value in $Text) {
                 $MessageLength += $Value.Length
             }
-        
+
             $WindowWidth = $Host.UI.RawUI.BufferSize.Width
             $CenterPosition = [Math]::Max(0, $WindowWidth / 2 - [Math]::Floor($MessageLength / 2))
-        
+
             # Only write spaces to the console if window width is greater than the message length
             if ($WindowWidth -ge $MessageLength) {
                 Write-Host ("{0}" -f (' ' * $CenterPosition)) -NoNewline
@@ -182,7 +182,7 @@ function Write-Color {
         }
         $Saved = $false
         $Retry = 0
-        Do {
+        do {
             $Retry++
             try {
                 if ($LogTime) {
@@ -198,6 +198,6 @@ function Write-Color {
                     Write-Warning "Write-Color - Couldn't write to log file $($_.Exception.Message). Retrying... ($Retry/$LogRetry)"
                 }
             }
-        } Until ($Saved -eq $true -or $Retry -ge $LogRetry)
+        } until ($Saved -eq $true -or $Retry -ge $LogRetry)
     }
 }
