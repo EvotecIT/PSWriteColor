@@ -47,3 +47,6 @@ Write-Color -T "My text", " is ", "all colorful" -C Yellow, Red, Green -B Red, G
 # Example 5
 Write-Color -T "My text", " is ", "all colorful" -C Yellow, Red, Green -B Green, Green, Yellow
 Write-Color -T "My text", " is ", "all colorful" -C Yellow, Red, Green -B Red, Green, Green -StartSpaces 2
+
+# Example 6
+Write-Color -T "My text", " is ", "all colorful" -C Yellow, Red, Green -HorizontalCenter
