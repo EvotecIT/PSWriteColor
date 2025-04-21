@@ -141,7 +141,14 @@ function Write-Color {
             foreach ($Value in $Text) {
                 $MessageLength += $Value.Length
             }
-            Write-Host ("{0}" -f (' ' * ([Math]::Max(0, $Host.UI.RawUI.BufferSize.Width / 2) - [Math]::Floor($MessageLength / 2)))) -NoNewline 
+
+            $WindowWidth = $Host.UI.RawUI.BufferSize.Width
+            $CenterPosition = [Math]::Max(0, $WindowWidth / 2 - [Math]::Floor($MessageLength / 2))
+
+            # Only write spaces to the console if window width is greater than the message length
+            if ($WindowWidth -ge $MessageLength) {
+                Write-Host ("{0}" -f (' ' * $CenterPosition)) -NoNewline
+            }
         } # Center the line horizontally according to the powershell window size
         if ($StartTab -ne 0) { for ($i = 0; $i -lt $StartTab; $i++) { Write-Host -Object "`t" -NoNewline } }  # Add TABS before text
         if ($StartSpaces -ne 0) { for ($i = 0; $i -lt $StartSpaces; $i++) { Write-Host -Object ' ' -NoNewline } }  # Add SPACES before text
@@ -175,7 +182,7 @@ function Write-Color {
         }
         $Saved = $false
         $Retry = 0
-        Do {
+        do {
             $Retry++
             try {
                 if ($LogTime) {
@@ -191,6 +198,6 @@ function Write-Color {
                     Write-Warning "Write-Color - Couldn't write to log file $($_.Exception.Message). Retrying... ($Retry/$LogRetry)"
                 }
             }
-        } Until ($Saved -eq $true -or $Retry -ge $LogRetry)
+        } until ($Saved -eq $true -or $Retry -ge $LogRetry)
     }
 }
