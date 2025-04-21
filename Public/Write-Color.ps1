@@ -62,6 +62,9 @@ function Write-Color {
     .PARAMETER NoConsoleOutput
     Switch to not output to console. Default all output goes to console.
 
+    .PARAMETER HorizontalCenter
+    Calculates the window width and inserts spaces to make the text center according to the present width of the powershell window. Default is false.
+
     .EXAMPLE
     Write-Color -Text "Red ", "Green ", "Yellow " -Color Red,Green,Yellow
 
@@ -123,6 +126,7 @@ function Write-Color {
         [ValidateSet('unknown', 'string', 'unicode', 'bigendianunicode', 'utf8', 'utf7', 'utf32', 'ascii', 'default', 'oem')][string]$Encoding = 'Unicode',
         [switch] $ShowTime,
         [switch] $NoNewLine,
+        [switch] $HorizontalCenter,
         [alias('HideConsole')][switch] $NoConsoleOutput
     )
     if (-not $NoConsoleOutput) {
@@ -132,6 +136,13 @@ function Write-Color {
             return
         }
         if ($LinesBefore -ne 0) { for ($i = 0; $i -lt $LinesBefore; $i++) { Write-Host -Object "`n" -NoNewline } } # Add empty line before
+        if ($HorizontalCenter) {
+            $MessageLength = 0
+            foreach ($Value in $Text) {
+                $MessageLength += $Value.Length
+            }
+            Write-Host ("{0}" -f (' ' * ([Math]::Max(0, $Host.UI.RawUI.BufferSize.Width / 2) - [Math]::Floor($MessageLength / 2)))) -NoNewline 
+        } # Center the line horizontally according to the powershell window size
         if ($StartTab -ne 0) { for ($i = 0; $i -lt $StartTab; $i++) { Write-Host -Object "`t" -NoNewline } }  # Add TABS before text
         if ($StartSpaces -ne 0) { for ($i = 0; $i -lt $StartSpaces; $i++) { Write-Host -Object ' ' -NoNewline } }  # Add SPACES before text
         if ($ShowTime) { Write-Host -Object "[$([datetime]::Now.ToString($DateTimeFormat))] " -NoNewline } # Add Time before output
