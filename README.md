@@ -47,6 +47,9 @@ Thank you for considering supporting this project!
 
 ## ChangeLog
 
+- 1.0.2 - 2025.04.21
+  - 📃 Added `HorizontalCenter` by AU-Mark
+
 - 1.0.1 - 2023.04.30
   - 🐛 Fixes UTF8 issue when publishing to PowerShell Gallery
 
