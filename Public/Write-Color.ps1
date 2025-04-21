@@ -136,12 +136,19 @@ function Write-Color {
             return
         }
         if ($LinesBefore -ne 0) { for ($i = 0; $i -lt $LinesBefore; $i++) { Write-Host -Object "`n" -NoNewline } } # Add empty line before
-        if ($HorizontalCenter) {
+                If ($HorizontalCenter) {
             $MessageLength = 0
-            foreach ($Value in $Text) {
+            ForEach ($Value in $Text) {
                 $MessageLength += $Value.Length
             }
-            Write-Host ("{0}" -f (' ' * ([Math]::Max(0, $Host.UI.RawUI.BufferSize.Width / 2) - [Math]::Floor($MessageLength / 2)))) -NoNewline 
+        
+            $WindowWidth = $Host.UI.RawUI.BufferSize.Width
+            $CenterPosition = [Math]::Max(0, $WindowWidth / 2 - [Math]::Floor($MessageLength / 2))
+        
+            # Only write spaces to the console if window width is greater than the message length
+            if ($WindowWidth -ge $MessageLength) {
+                Write-Host ("{0}" -f (' ' * $CenterPosition)) -NoNewline
+            }
         } # Center the line horizontally according to the powershell window size
         if ($StartTab -ne 0) { for ($i = 0; $i -lt $StartTab; $i++) { Write-Host -Object "`t" -NoNewline } }  # Add TABS before text
         if ($StartSpaces -ne 0) { for ($i = 0; $i -lt $StartSpaces; $i++) { Write-Host -Object ' ' -NoNewline } }  # Add SPACES before text
