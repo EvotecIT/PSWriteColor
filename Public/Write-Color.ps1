@@ -77,28 +77,28 @@ Function Write-Color {
     Custom style parameters for ANSI-enabled terminals. Accepts an array of styles or an array of arrays of styles to apply to multiple text segments.
 
     .PARAMETER Bold
-    Switch to make the text bold when using ANSI terminal support.
+    Switch to make the whole line bold when using ANSI terminal support.
 
     .PARAMETER Faint
-    Switch to make the text faint (decreased intensity) when using ANSI terminal support.
+    Switch to make the whole line faint (decreased intensity) when using ANSI terminal support.
 
     .PARAMETER Italic
-    Switch to make the text italic when using ANSI terminal support.
+    Switch to make the whole line italic when using ANSI terminal support.
 
     .PARAMETER Underline
-    Switch to underline the text when using ANSI terminal support.
+    Switch to underline the whole line when using ANSI terminal support.
 
     .PARAMETER Blink
-    Switch to make the text blink when using ANSI terminal support.
+    Switch to make the whole line blink when using ANSI terminal support.
 
     .PARAMETER CrossedOut
-    Switch to display the text with a line through it (strikethrough) when using ANSI terminal support.
+    Switch to display the whole line with a line through it (strikethrough) when using ANSI terminal support.
 
     .PARAMETER DoubleUnderline
-    Switch to display the text with a double underline when using ANSI terminal support.
+    Switch to display the whole line with a double underline when using ANSI terminal support.
 
     .PARAMETER Overline
-    Switch to display the text with a line above it when using ANSI terminal support.
+    Switch to display the whole line with a line above it when using ANSI terminal support.
 
     .PARAMETER StartTab
     Number of tabs to add before text. Default is 0.
@@ -475,15 +475,169 @@ public class ConsoleHelper {
         }
 
         $Colors = @{
-            Black = @('Black',30,40,0); Red = @('Red',31,41,1); Green = @('Green',32,42,2); 
-            Yellow = @('Yellow',33,43,3); Blue = @('Blue',34,44,4); Magenta = @('Magenta',35,45,5); 
-            Cyan = @('Cyan',36,46,6); Gray = @('Gray',37,107,7);
-            LightBlack = @('DarkGray',90,100,238); LightRed = @('Red',91,101,9); LightGreen = @('Green',92,102,10);
-            LightYellow = @('Yellow',93,103,11); LightBlue = @('Blue', 94,104,12); LightMagenta = @('Magenta',95,105,13);
-            LightCyan = @('Cyan',96,106,14);  White = @('White',97,47,15);
-            DarkGray = @('DarkGray',90,100,8); DarkRed = @('DarkRed',31,41,52); DarkGreen = @('DarkGreen',32,42,28);
-            DarkYellow = @('DarkYellow',33,43,136); DarkBlue = @('DarkBlue',34,44,19); DarkMagenta = @('DarkMagenta',35,45,90);
-            DarkCyan = @('DarkCyan',36,106,30);
+            # Native Color Families
+            # Neutral family
+            Black = @('Black',30,40,0);
+            Gray = @('Gray',37,107,7);
+            DarkGray = @('DarkGray',90,100,8); 
+            LightBlack = @('DarkGray',90,100,238); 
+            White = @('White',97,47,15);
+            
+            # Red family
+            DarkRed = @('DarkRed',31,41,52); 
+            Red = @('Red',31,41,1); 
+            LightRed = @('Red',91,101,9); 
+            
+            # Green family
+            DarkGreen = @('DarkGreen',32,42,28); 
+            Green = @('Green',32,42,2); 
+            LightGreen = @('Green',92,102,10);
+            
+            # Yellow family
+            DarkYellow = @('DarkYellow',33,43,136); 
+            Yellow = @('Yellow',33,43,3); 
+            LightYellow = @('Yellow',93,103,11);
+            
+            # Blue family
+            DarkBlue = @('DarkBlue',34,44,19); 
+            Blue = @('Blue',34,44,4); 
+            LightBlue = @('Blue',94,104,12);
+            
+            # Magenta family
+            DarkMagenta = @('DarkMagenta',35,45,90); 
+            Magenta = @('Magenta',35,45,5); 
+            LightMagenta = @('Magenta',95,105,13);
+            
+            # Cyan family
+            DarkCyan = @('DarkCyan',36,46,30); 
+            Cyan = @('Cyan',36,46,6); 
+            LightCyan = @('Cyan',96,106,14);
+            
+            # Additional ANSI 8-bit Color Families
+            # Orange family
+            DarkOrange = @('DarkYellow',33,43,166); 
+            Orange = @('DarkYellow',33,43,208); 
+            LightOrange = @('Yellow',33,43,215);
+            
+            # Purple family
+            DarkPurple = @('DarkMagenta',35,45,54); 
+            Purple = @('DarkMagenta',35,45,93); 
+            LightPurple = @('Magenta',35,45,135);
+            
+            # Pink family
+            DarkPink = @('DarkMagenta',35,45,168); 
+            Pink = @('Magenta',35,45,205); 
+            LightPink = @('Magenta',95,105,218);
+            
+            # Brown family
+            DarkBrown = @('DarkRed',31,41,88); 
+            Brown = @('DarkRed',31,41,130); 
+            LightBrown = @('DarkYellow',33,43,173);
+            
+            # Teal family
+            DarkTeal = @('DarkCyan',36,46,23); 
+            Teal = @('DarkCyan',36,46,30); 
+            LightTeal = @('Cyan',36,46,80);
+            
+            # Violet family
+            DarkViolet = @('DarkMagenta',35,45,128); 
+            Violet = @('Magenta',35,45,134); 
+            LightViolet = @('Magenta',95,105,177);
+            
+            # Lime family
+            DarkLime = @('DarkGreen',32,42,34); 
+            Lime = @('Green',32,42,118); 
+            LightLime = @('Green',92,102,119);
+            
+            # Slate family
+            DarkSlate = @('DarkGray',90,100,238); 
+            Slate = @('Gray',37,107,102); 
+            LightSlate = @('Gray',37,107,103);
+            
+            # Gold family
+            DarkGold = @('DarkYellow',33,43,136); 
+            Gold = @('Yellow',33,43,178); 
+            LightGold = @('Yellow',93,103,185);
+            
+            # Sky family
+            DarkSky = @('DarkBlue',34,44,24); 
+            Sky = @('Blue',34,44,111); 
+            LightSky = @('Cyan',36,46,152);
+            
+            # Coral family
+            DarkCoral = @('DarkRed',31,41,167); 
+            Coral = @('Red',31,41,209); 
+            LightCoral = @('Red',91,101,210);
+            
+            # Olive family
+            DarkOlive = @('DarkGreen',32,42,58); 
+            Olive = @('DarkYellow',33,43,100); 
+            LightOlive = @('DarkYellow',33,43,107);
+            
+            # Lavender family
+            DarkLavender = @('DarkMagenta',35,45,97); 
+            Lavender = @('Magenta',35,45,183); 
+            LightLavender = @('Magenta',95,105,189);
+            
+            # Mint family
+            DarkMint = @('DarkGreen',32,42,29); 
+            Mint = @('Green',32,42,121); 
+            LightMint = @('Green',92,102,157);
+            
+            # Salmon family
+            DarkSalmon = @('DarkRed',31,41,173); 
+            Salmon = @('Red',31,41,174); 
+            LightSalmon = @('Red',91,101,175);
+            
+            # Indigo family
+            DarkIndigo = @('DarkBlue',34,44,17); 
+            Indigo = @('DarkMagenta',35,45,54); 
+            LightIndigo = @('Blue',34,44,61);
+            
+            # Turquoise family
+            DarkTurquoise = @('DarkCyan',36,46,31); 
+            Turquoise = @('Cyan',36,46,43); 
+            LightTurquoise = @('Cyan',96,106,86);
+            
+            # Ruby family
+            DarkRuby = @('DarkRed',31,41,52); 
+            Ruby = @('Red',31,41,124); 
+            LightRuby = @('Red',91,101,161);
+            
+            # Jade family
+            DarkJade = @('DarkGreen',32,42,22); 
+            Jade = @('DarkGreen',32,42,35); 
+            LightJade = @('Green',32,42,79);
+            
+            # Amber family
+            DarkAmber = @('DarkYellow',33,43,130); 
+            Amber = @('Yellow',33,43,214); 
+            LightAmber = @('Yellow',93,103,221);
+            
+            # Steel family
+            DarkSteel = @('DarkGray',90,100,59); 
+            Steel = @('Gray',37,107,67); 
+            LightSteel = @('White',97,47,146);
+            
+            # Crimson family
+            DarkCrimson = @('DarkRed',31,41,88); 
+            Crimson = @('Red',31,41,160); 
+            LightCrimson = @('Red',91,101,161);
+            
+            # Emerald family
+            DarkEmerald = @('DarkGreen',32,42,22); 
+            Emerald = @('Green',32,42,36); 
+            LightEmerald = @('Green',92,102,85);
+            
+            # Sapphire family
+            DarkSapphire = @('DarkBlue',34,44,18); 
+            Sapphire = @('Blue',34,44,25); 
+            LightSapphire = @('Blue',94,104,69);
+            
+            # Wine family
+            DarkWine = @('DarkRed',31,41,52); 
+            Wine = @('DarkRed',31,41,88); 
+            LightWine = @('Red',31,41,125);
         }
     
         # If Colors were provided, let's validate the colors over assign a default color

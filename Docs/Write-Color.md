@@ -8,7 +8,7 @@ schema: 3.0.0
 # Write-Color
 
 ## SYNOPSIS
-Write-Color is a wrapper around Write-Host delivering a lot of additional features for easier color options.
+Write-Color is a wrapper around Write-Host delivering a lot of additional features for easier color options and logging.
 
 ## SYNTAX
 
@@ -17,7 +17,7 @@ Write-Color [[-Text] <String[]>] [[-Color] <array[]>] [[-BackGroundColor] <array
 [[-Style] <object[]>] [-Bold] [-Faint] [-Italic] [-Underline] [-Blink] [-CrossedOut] [-DoubleUnderline] [-Overline] 
 [[-StartTab] <Int32>] [[-LinesBefore] <Int32>] [[-LinesAfter] <Int32>] [[-StartSpaces] <Int32>]
 [[-LogFile] <String>] [[-LogPath] <String>] [[-DateTimeFormat] <String>] [-LogTime] [[-LogRetry] <Int32>] [[-Encoding] <String>]
-[-ShowTime] [-NoNewLine] [-NoConsoleOutput] [<CommonParameters>]
+[-ShowTime] [-NoNewLine] [-HorizontalCenter] [-NoConsoleOutput] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -206,21 +206,35 @@ Default is Gray.
 White, Green, Cyan, Red, Magenta, Yellow, Gray, Black, 
 DarkGray, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, DarkBlue
 
-#### Available ANSI4 colors are (if you supply a Dark color it will be converted into the Light color automatically): 
+#### Available ANSI4 colors are (if you supply a Dark color it will be converted into the non-light color automatically if you supply an ANSI 8-bit color name it will be converted to the closest supported matching color): 
 White, Green, Cyan, Red, Magenta, Yellow, Gray, Black, 
 LightGray, LightBlue, LightGreen, LightCyan, LightRed, LightMagenta, LightYellow, LightBlue
 
 ##### ANSI 4 integers
+FG Color: 30..37 and 90..97
+
+BG Color 40..47 and 100..107
 
 More info on ANSI avilable at wikipedia
 https://en.wikipedia.org/wiki/ANSI_escape_code
 
 #### Available ANSI8 colors are: 
-White, Green, Cyan, Red, Magenta, Yellow, Gray, Black, 
-LightGray, LightBlue, LightGreen, LightCyan, LightRed, LightMagenta, LightYellow, LightBlue, LightBlack
-DarkGray, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, DarkBlue
+##### Native terminal color families
+White, Green, Cyan, Red, Magenta, Yellow, Gray, Black,
+LightGray, LightBlue, LightGreen, LightCyan, LightRed, LightMagenta, LightYellow, LightBlue, LightBlack,
+DarkGray, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, DarkBlue,
+##### Additional color families
+Orange, DarkOrange, LightOrange, Purple, DarkPurple, LightPurple, Pink, DarkPink, LightPink,
+Brown, DarkBrown, LightBrown, Teal, DarkTeal, LightTeal, Violet, DarkViolet, LightViolet,
+Lime, DarkLime, LightLime, Slate, DarkSlate, LightSlate, Gold, DarkGold, LightGold,
+Sky, DarkSky, LightSky, Coral, DarkCoral, LightCoral, Olive, DarkOlive, LightOlive,
+Lavender, DarkLavender, LightLavender, Mint, DarkMint, LightMint, Salmon, DarkSalmon, LightSalmon,
+Indigo, DarkIndigo, LightIndigo, Turquoise, DarkTurquoise, LightTurquoise, Ruby, DarkRuby, LightRuby,
+Jade, DarkJade, LightJade, Amber, DarkAmber, LightAmber, Steel, DarkSteel, LightSteel,
+Crimson, DarkCrimson, LightCrimson, Emerald, DarkEmerald, LightEmerald, Sapphire, DarkSapphire, LightSapphire,
+Wine, DarkWine, LightWine
 
-##### ANSI 4 integers
+##### ANSI 8 integers
 0..255
 
 More info on ANSI avilable at wikipedia
@@ -263,9 +277,18 @@ More info on ANSI avilable at wikipedia
 https://en.wikipedia.org/wiki/ANSI_escape_code
 
 Available ANSI8 colors are: 
-White, Green, Cyan, Red, Magenta, Yellow, Gray, Black, 
-LightGray, LightBlue, LightGreen, LightCyan, LightRed, LightMagenta, LightYellow, LightBlue, LightBlack
-DarkGray, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, DarkBlue
+White, Green, Cyan, Red, Magenta, Yellow, Gray, Black,
+LightGray, LightBlue, LightGreen, LightCyan, LightRed, LightMagenta, LightYellow, LightBlue, LightBlack,
+DarkGray, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, DarkBlue,
+Orange, DarkOrange, LightOrange, Purple, DarkPurple, LightPurple, Pink, DarkPink, LightPink,
+Brown, DarkBrown, LightBrown, Teal, DarkTeal, LightTeal, Violet, DarkViolet, LightViolet,
+Lime, DarkLime, LightLime, Slate, DarkSlate, LightSlate, Gold, DarkGold, LightGold,
+Sky, DarkSky, LightSky, Coral, DarkCoral, LightCoral, Olive, DarkOlive, LightOlive,
+Lavender, DarkLavender, LightLavender, Mint, DarkMint, LightMint, Salmon, DarkSalmon, LightSalmon,
+Indigo, DarkIndigo, LightIndigo, Turquoise, DarkTurquoise, LightTurquoise, Ruby, DarkRuby, LightRuby,
+Jade, DarkJade, LightJade, Amber, DarkAmber, LightAmber, Steel, DarkSteel, LightSteel,
+Crimson, DarkCrimson, LightCrimson, Emerald, DarkEmerald, LightEmerald, Sapphire, DarkSapphire, LightSapphire,
+Wine, DarkWine, LightWine
 
 More info on ANSI avilable at wikipedia
 https://en.wikipedia.org/wiki/ANSI_escape_code
@@ -341,8 +364,11 @@ Accept wildcard characters: False
 ```
 
 ### -Bold
-Switch to make the text bold when using ANSI terminal support.
+Switch to make the whole line bold when using ANSI terminal support. Bold text in PowerShell is converted to to the lighter color value. 
+- For native PowerShell colors, that means you can only bold the Dark colored texts. Running bold on the regular colors will not show any difference. 
+- For ANSI 4-bit colors you can only bold the regular colors. Running bold on the light colors will not show any difference.
 Default is False.
+- For ANSI 8-bit colors, the regular and dark color names support bolding. Running bold on the light colors will not show any difference.
 
 ```yaml
 Type: SwitchParameter
@@ -357,7 +383,7 @@ Accept wildcard characters: False
 ```
 
 ### -Faint
-Switch to make the text faint (decreased intensity) when using ANSI terminal support.
+Switch to make the whole line faint (decreased intensity, darker) when using ANSI terminal support.
 Default is False.
 
 ```yaml
@@ -373,7 +399,7 @@ Accept wildcard characters: False
 ```
 
 ### -Italic
-Switch to make the text italic when using ANSI terminal support.
+Switch to make the whole line italic when using ANSI terminal support.
 Default is False.
 
 ```yaml
@@ -389,7 +415,7 @@ Accept wildcard characters: False
 ```
 
 ### -Underline
-Switch to underline the text when using ANSI terminal support.
+Switch to underline the while line when using ANSI terminal support.
 Default is False.
 
 ```yaml
@@ -405,7 +431,7 @@ Accept wildcard characters: False
 ```
 
 ### -Blink
-Switch to make the text blink when using ANSI terminal support.
+Switch to make the whole line blink between the regular and faint version of the text when using ANSI terminal support.
 Default is False.
 
 ```yaml
@@ -421,7 +447,7 @@ Accept wildcard characters: False
 ```
 
 ### -CrossedOut
-Switch to display the text with a line through it (strikethrough) when using ANSI terminal support.
+Switch to display the whole line of the whole line with a line through it (strikethrough) when using ANSI terminal support.
 Default is False.
 
 ```yaml
@@ -437,7 +463,7 @@ Accept wildcard characters: False
 ```
 
 ### -DoubleUnderline
-Switch to display the text with a double underline when using ANSI terminal support.
+Switch to display the whole line with a double underline when using ANSI terminal support.
 Default is False.
 
 ```yaml
@@ -453,7 +479,7 @@ Accept wildcard characters: False
 ```
 
 ### -Overline
-Switch to display the text with a line above it when using ANSI terminal support.
+Switch to display the whole line with a line above it when using ANSI terminal support.
 Default is False.
 
 ```yaml
