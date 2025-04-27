@@ -20,6 +20,18 @@
 # PSWriteColor - PowerShell module
 
 Write-Color is a wrapper around Write-Host allowing you to create nice looking scripts with additional features for easier color options for native powershell, ANSI SGR, ANSI 4-bit color, and ANSI 8-bit color support. 
+
+**Features:**
+
+    - Easy manipulation of colors
+    - ANSI 4 color support with supported default color names or integers
+    - ANSI 8 color support with supported default color names or integers
+    - ANSI Text and Line Styles
+    - Testing of ANSI support in your console if ANSI coloring or styles used
+    - Logging output to file with optional parameters for a log path, log timestamps, and log levels
+    - Nice formatting options and examples
+    - Ability to use aliases for a number of parameters
+
 More information for this project at my [Evotec website](https://evotec.xyz/hub/scripts/pswritecolor/).
 
 ## Support This Project
@@ -74,7 +86,7 @@ Install-Module -Name "PSWriteColor" -Force
 
 # Examples
 
-![Image](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWhmaDN5ZGhiemZ1MjN1bDk5czM0em9qdzU1ZzJkZ25tOGZmY3hjdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/eP2ureGTsFJPwZwcUh/giphy.gif)
+![Write-Color Example](https://i.imgur.com/PdGdRHb.gif)
 
 ### Writing text with multiple colors
 ```pwsh
