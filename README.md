@@ -86,7 +86,7 @@ Install-Module -Name "PSWriteColor" -Force
 
 # Examples
 
-![Write-Color Example](https://i.imgur.com/PdGdRHb.gif)
+[![Write-Color Example](https://i.imgur.com/PdGdRHb.gif)](https://i.imgur.com/7BEaDOI.gif)
 
 ### Writing text with multiple colors
 ```pwsh
