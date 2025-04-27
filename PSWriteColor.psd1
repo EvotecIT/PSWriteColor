@@ -5,7 +5,7 @@
     CompanyName          = 'Evotec'
     CompatiblePSEditions = @('Desktop', 'Core')
     Copyright            = '(c) 2011 - 2023 Przemyslaw Klys @ Evotec. All rights reserved.'
-    Description          = 'Write-Color is a wrapper around Write-Host allowing you to create nice looking scripts, with colorized output. It provides easy manipulation of colors, logging output to file (log) and nice formatting options out of the box.'
+    Description          = 'Write-Color is a wrapper around Write-Host delivering a lot of additional features for easier color options for native powershell, ANSI SGR, ANSI 4-bit color, and ANSI 8-bit color support. It provides easy manipulation of colors, logging output to file (log) and nice formatting options out of the box.'
     FunctionsToExport    = 'Write-Color'
     GUID                 = '0b0ba5c5-ec85-4c2b-a718-874e55a8bc3f'
     ModuleVersion        = '1.0.1'

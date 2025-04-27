@@ -1,5 +1,6 @@
 Import-Module .\PSWriteColor.psd1 -Force
 
+# EXAMPLE
 $line = '========================================================='
 
 do {
@@ -39,3 +40,24 @@ do {
         }
     }
 } while ($inputData -ne '0')
+
+# EXAMPLE
+do {
+    Write-Color '1. ', 'View System Information   '-Color Yellow,Cyan -BackGroundColor Black -StartTab 2
+    Write-Color '2. ', 'Check Disk Space          ' -Color Yellow,Cyan -BackGroundColor Black -StartTab 2
+    Write-Color '3. ', 'Scan for Updates          ' -Color Yellow,Cyan -BackGroundColor Black -StartTab 2
+    Write-Color '4. ', 'Exit                      ' -Color Yellow,Cyan -BackGroundColor Black -StartTab 2
+
+    Write-Color -Text "Enter the number of your choice: " -Color White -NoNewline -LinesBefore 1; $selected = Read-Host
+
+    Switch ($selected) {
+        1 { Exit }
+        2 { Exit }
+        3 { Exit }
+        4 { Exit }
+        default {
+            Write-Color 'Not implemented...', ' Press any key to continue!' -Color Red, Yellow -LinesBefore 1
+            [void][System.Console]::ReadKey($true)
+        }
+    }
+} while ($selected -notin 1..4)

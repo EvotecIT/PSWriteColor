@@ -1,5 +1,4 @@
 Import-Module .\PSWriteColor.psd1 -Force
 
-Write-Color -Text "Select an ", 'option', ' to ', 'type', ' [quit]', ' to exit:' -Color White, Yellow, White, White, Green, White -NoNewLine
-$inputInformation = Read-Host
-$inputInformation
+Write-Color -Text "Enter the number of your choice: " -Color White -NoNewline -LinesBefore 1; $selected = Read-Host
+Write-Color -Text "Are you sure you want to select $selected"," (Y/","N","): " -Color White,DarkYellow,Green,DarkYellow -NoNewline; $confirmed = Read-Host

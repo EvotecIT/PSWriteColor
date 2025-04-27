@@ -17,7 +17,7 @@ Build-Module -ModuleName 'PSWriteColor' {
         # Copyright statement for this module
         Copyright            = "(c) 2011 - $((Get-Date).Year) Przemyslaw Klys @ Evotec. All rights reserved."
         # Description of the functionality provided by this module
-        Description          = 'Write-Color is a wrapper around Write-Host allowing you to create nice looking scripts, with colorized output. It provides easy manipulation of colors, logging output to file (log) and nice formatting options out of the box.'
+        Description          = 'Write-Color is a wrapper around Write-Host delivering a lot of additional features for easier color options for native powershell, ANSI SGR, ANSI 4-bit color, and ANSI 8-bit color support. It provides easy manipulation of colors, logging output to file (log) and nice formatting options out of the box.'
         # Minimum version of the Windows PowerShell engine required by this module
         PowerShellVersion    = '5.1'
         # Tags applied to this module. These help with module discovery in online galleries.
