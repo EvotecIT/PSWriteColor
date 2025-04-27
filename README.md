@@ -59,6 +59,19 @@ Thank you for considering supporting this project!
 
 ## ChangeLog
 
+- 2.0.0 - 2025.04.27
+  - 💡 Added ANSI SGR support styles for text segments and whole lines
+  - 💡 Added ANSI 4-bit color support
+  - 💡 Added ANSI 8-bit color support
+  - 💡 Added ANSI to native terminal color mapping
+  - 💡 Added ANSI support testing and automatic session enable if supported
+  - 💡 Added additional ANSI 8-bit color family string names
+  - 💡 Added background color setting of None
+  - 💡 Modified LogFile parameter to accept a path or filename
+  - 💡 Added LogPath parameter
+  - 💡 Added LogLevel parameter
+  - 💡 Added HorizontalCenter parameter
+  - 📃 Updated documentation for new parameters and changes
 - 1.0.1 - 2023.04.30
   - 🐛 Fixes UTF8 issue when publishing to PowerShell Gallery
 
