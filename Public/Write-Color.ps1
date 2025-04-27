@@ -77,7 +77,11 @@ Function Write-Color {
     Custom style parameters for ANSI-enabled terminals. Accepts an array of styles or an array of arrays of styles to apply to multiple text segments.
 
     .PARAMETER Bold
-    Switch to make the whole line bold when using ANSI terminal support.
+    Switch to make the whole line bold when using ANSI terminal support. Bold text in PowerShell is converted to to the lighter color value. 
+    - For native PowerShell colors, that means you can only bold the Dark colored texts. Running bold on the regular colors will not show any difference. 
+    - For ANSI 4-bit colors you can only bold the regular colors. Running bold on the light colors will not show any difference.
+    Default is False.
+    - For ANSI 8-bit colors, the regular and dark color names support bolding. Running bold on the light colors will not show any difference.
 
     .PARAMETER Faint
     Switch to make the whole line faint (decreased intensity) when using ANSI terminal support.
