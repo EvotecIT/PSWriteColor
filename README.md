@@ -19,18 +19,28 @@
 
 # PSWriteColor - PowerShell module
 
-Write-Color is a wrapper around Write-Host allowing you to create nice looking scripts with additional features for easier color options for native powershell, ANSI SGR, ANSI 4-bit color, and ANSI 8-bit color support. 
+Write-Color is a wrapper around Write-Host delivering a lot of additional features for easier color options for native powershell. 
 
-**Features:**
+Optional Write-ColorEX function provides feature compatibility with Write-Color function with included support for ANSI SGR, ANSI 4-bit color, and ANSI 8-bit color support. 
+
+Both functions provide easy manipulation of colors, logging output to file (log) and nice formatting options out of the box.
+
+**Write-Color Features:**
 
     - Easy manipulation of colors
-    - ANSI 4 color support with supported default color names or integers
-    - ANSI 8 color support with supported default color names or integers
-    - ANSI Text and Line Styles
-    - Testing of ANSI support in your console if ANSI coloring or styles used
-    - Logging output to file with optional parameters for a log path, log timestamps, and log levels
     - Nice formatting options and examples
     - Ability to use aliases for a number of parameters
+    - Efficient fast code
+
+**Write-ColorEX Features**
+
+    - Easy manipulation of colors
+    - Nice formatting options and examples
+    - ANSI 4 color support with supported default color names or integers
+    - ANSI 8 color support with supported default color names or integers
+    - ANSI SGR Text and Line Styles
+    - Testing of ANSI support in your console if ANSI coloring or styles used
+    - Logging output to file with optional parameters for a log path, log timestamps, and log levels
 
 More information for this project at my [Evotec website](https://evotec.xyz/hub/scripts/pswritecolor/).
 
@@ -59,19 +69,24 @@ Thank you for considering supporting this project!
 
 ## ChangeLog
 
-- 2.0.0 - 2025.04.27
-  - 💡 Added ANSI SGR support styles for text segments and whole lines
-  - 💡 Added ANSI 4-bit color support
-  - 💡 Added ANSI 8-bit color support
-  - 💡 Added ANSI to native terminal color mapping
-  - 💡 Added ANSI support testing and automatic session enable if supported
-  - 💡 Added additional ANSI 8-bit color family string names
-  - 💡 Added background color setting of None
-  - 💡 Modified LogFile parameter to accept a path or filename
-  - 💡 Added LogPath parameter
-  - 💡 Added LogLevel parameter
-  - 💡 Added HorizontalCenter parameter
-  - 📃 Updated documentation for new parameters and changes
+- 2.0.0 - 2025.05.02
+  - 💡 Added Write-ColorEX function by MarkusMcNugen (aka AU-Mark)
+    - 💡 Added ANSI SGR support styles for text segments and whole lines
+    - 💡 Added ANSI 4-bit color support
+    - 💡 Added ANSI 8-bit color support
+    - 💡 Added ANSI to native terminal color mapping
+    - 💡 Added ANSI support testing and automatic session enable if supported
+    - 💡 Added additional ANSI 8-bit color family string names
+    - 💡 Added background color setting of None
+    - 💡 Modified LogFile parameter to accept a path or filename
+    - 💡 Added LogPath parameter
+    - 💡 Added LogLevel parameter
+    - 💡 Added BlankLink parameter
+    - 📃 Updated documentation for new function, parameters and changes
+- 1.0.3 - 2025.04.21
+  - 📃 Improves `HorizontalCenter` by AU-Mark
+- 1.0.2 - 2025.04.21
+  - 📃 Added `HorizontalCenter` by AU-Mark
 - 1.0.1 - 2023.04.30
   - 🐛 Fixes UTF8 issue when publishing to PowerShell Gallery
 
@@ -97,7 +112,61 @@ Thank you for considering supporting this project!
 Install-Module -Name "PSWriteColor" -Force
 ```
 
-# Examples
+# Write-Color Examples
+
+![Image](https://evotec.xyz/wp-content/uploads/2018/05/img_5af07118e9f87.png)
+
+```powershell
+# Example 1
+Write-Color "[i] ", "Parameter in configuration of ", "EmailParameters.EmailFrom", " exists." -Color White, White, Green, White -ShowTime
+Write-Color "[i] ", "Parameter in configuration of ", "EmailParameters.EmailTo", " exists." -Color White, White, Green, White -ShowTime
+```
+
+```powershell
+# Example 2
+Write-Color "[i] ", "I will send email soon...", "Get ready.." -Color White
+Write-Color "[i] ", "Sending email...." -Color White, White -NoNewLine
+<#
+    Do Something....
+#>
+if ($true) {
+    Write-Color -Text "OK" -Color Green
+}
+```
+
+```powershell
+# Example 3
+Write-Color -Text "Red ", "Green ", "Yellow " -Color Red, Green, Yellow
+Write-Color -Text "This is text in Green ",
+"followed by red ",
+"and then we have Magenta... ",
+"isn't it fun? ",
+"Here goes DarkCyan" -Color Green, Red, Magenta, White, DarkCyan
+Write-Color -Text "This is text in Green ",
+"followed by red ",
+"and then we have Magenta... ",
+"isn't it fun? ",
+"Here goes DarkCyan" -Color Green, Red, Magenta, White, DarkCyan -StartTab 3 -LinesBefore 1 -LinesAfter 1
+Write-Color "1. ", "Option 1" -Color Yellow, Green
+Write-Color "2. ", "Option 2" -Color Yellow, Green
+Write-Color "3. ", "Option 3" -Color Yellow, Green
+Write-Color "4. ", "Option 4" -Color Yellow, Green
+Write-Color "9. ", "Press 9 to exit" -Color Yellow, Gray -LinesBefore 1
+Write-Color -LinesBefore 2 -Text "This little ", "message is ", "written to log ", "file as well." `
+        -Color Yellow, White, Green, Red, Red -LogFile "C:\testing.txt" -TimeFormat "yyyy-MM-dd HH:mm:ss"
+Write-Color -Text "This can get ", "handy if ", "want to display things, and log actions to file ", "at the same time." `
+        -Color Yellow, White, Green, Red, Red -LogFile "C:\testing.txt"
+```
+
+```powershell
+# Example 4 with backgrund colors and usage of aliases
+Write-Color -T "My text", " is ", "all colorful" -C Yellow, Red, Green -B Green, Green, Yellow
+Write-Color -T "My text", " is ", "all colorful" -C Yellow, Red, Green -B Red, Green, Green
+# Example 5 with aliases
+wc -t "my text" -C Red
+```
+
+# Write-ColorEX Examples
 
 [![Write-Color Example](https://i.imgur.com/PdGdRHb.gif)](https://i.imgur.com/7BEaDOI.gif)
 

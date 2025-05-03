@@ -33,7 +33,7 @@ do {
     $inputData = Read-Host 'Select'
 
     Switch ($inputData) {
-        0 { Exit }
+        0 { Continue }
         default {
             Write-Color 'Not implemented...', ' Press any key to continue!' -Color Red, Yellow -LinesBefore 1
             [void][System.Console]::ReadKey($true)
@@ -61,3 +61,23 @@ do {
         }
     }
 } while ($selected -notin 1..4)
+
+# EXAMPLE
+# Creating native PWSH dotted line boxed content
+Write-ColorEX "+----------------------+" -Color Cyan
+Write-ColorEX "$([char]166)", " System Status Report ", "$([char]166)" -Color Cyan,White,Cyan
+Write-ColorEX "+----------------------+" -Color Cyan
+Write-ColorEX "$([char]166)", " CPU: ", "42%             ", "$([char]166)" -Color Cyan,White,Green,Cyan
+Write-ColorEX "$([char]166)", " Memory: ", "68%          ", "$([char]166)" -Color Cyan,White,Yellow,Cyan
+Write-ColorEX "$([char]166)", " Disk: ", "89%            ", "$([char]166)" -Color Cyan,White,Red,Cyan
+Write-ColorEX "+----------------------+" -Color Cyan
+
+# EXAMPLE
+# Creating ANSI solid line boxed content
+Write-ColorEX "|","                      ","|" -Color Cyan, Cyan, Cyan -HorizontalCenter -Style None,Overline,None
+Write-ColorEX "|", " System Status Report ", "|" -Color Cyan,White,Cyan -HorizontalCenter
+Write-ColorEX "|","                      ","|" -Color Cyan, Cyan, Cyan -HorizontalCenter -Style None,Underline,None
+Write-ColorEX "|", " CPU: ", "42%             ", "|" -Color Cyan,White,Green,Cyan -HorizontalCenter
+Write-ColorEX "|", " Memory: ", "68%          ", "|" -Color Cyan,White,Yellow,Cyan -HorizontalCenter
+Write-ColorEX "|", " Disk: ", "89%            ", "|" -Color Cyan,White,Red,Cyan -HorizontalCenter
+Write-ColorEX " ","                      "," " -Color Cyan, Cyan, Cyan -HorizontalCenter -Style None,Overline,None

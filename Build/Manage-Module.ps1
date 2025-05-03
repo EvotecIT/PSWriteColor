@@ -5,23 +5,23 @@ Build-Module -ModuleName 'PSWriteColor' {
     # Usual defaults as per standard module
     $Manifest = @{
         # Version number of this module.
-        ModuleVersion        = '1.0.X'
+        ModuleVersion        = '2.0.X'
         # Supported PSEditions
         CompatiblePSEditions = @('Desktop', 'Core')
         # ID used to uniquely identify this module
         GUID                 = '0b0ba5c5-ec85-4c2b-a718-874e55a8bc3f'
         # Author of this module
-        Author               = 'Przemyslaw Klys'
+        Author               = @('Przemyslaw Klys', 'MarkusMcNugen')
         # Company or vendor of this module
         CompanyName          = 'Evotec'
         # Copyright statement for this module
         Copyright            = "(c) 2011 - $((Get-Date).Year) Przemyslaw Klys @ Evotec. All rights reserved."
         # Description of the functionality provided by this module
-        Description          = 'Write-Color is a wrapper around Write-Host delivering a lot of additional features for easier color options for native powershell, ANSI SGR, ANSI 4-bit color, and ANSI 8-bit color support. It provides easy manipulation of colors, logging output to file (log) and nice formatting options out of the box.'
+        Description          = 'Write-Color is a wrapper around Write-Host delivering a lot of additional features for easier color options for native powershell. Optional Write-ColorEX function provides feature compatibility with Write-Color function with included support for ANSI SGR, ANSI 4-bit color, and ANSI 8-bit color support. Both functions provide easy manipulation of colors, logging output to file (log) and nice formatting options out of the box.'
         # Minimum version of the Windows PowerShell engine required by this module
         PowerShellVersion    = '5.1'
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags                 = 'Write-Host', 'Color', 'Colour', 'Terminal', 'Console', 'Logging', 'Prompt', 'Write-Color', 'Windows', 'MacOS', 'Linux'
+        Tags                 = 'Write-Host', 'Color', 'Colour', 'Terminal', 'Console', 'Logging', 'Prompt', 'Write-Color', 'Windows', 'MacOS', 'Linux', 'Write-ColorEX'
         # A URL to the main website for this project.
         ProjectUri           = 'https://github.com/EvotecIT/PSWriteColor'
         # A URL to an icon representing this module.

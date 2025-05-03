@@ -12,5 +12,5 @@ Locale: en-US
 
 ## PSWriteColor Cmdlets
 ### [Write-Color](Write-Color.md)
-Write-Color is a wrapper around Write-Host delivering a lot of additional features for easier color options.
+Write-Color is a wrapper around Write-Host delivering a lot of additional features for easier color options for native powershell, ANSI SGR, ANSI 4-bit color, and ANSI 8-bit color support. It provides easy manipulation of colors, logging output to file (log) and nice formatting options out of the box.
 
