@@ -81,7 +81,7 @@ Thank you for considering supporting this project!
     - 💡 Modified LogFile parameter to accept a path or filename
     - 💡 Added LogPath parameter
     - 💡 Added LogLevel parameter
-    - 💡 Added BlankLink parameter
+    - 💡 Added BlankLine parameter
     - 📃 Updated documentation for new function, parameters and changes
 - 1.0.3 - 2025.04.21
   - 📃 Improves `HorizontalCenter` by AU-Mark
