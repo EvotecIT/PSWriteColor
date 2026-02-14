@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://www.powershellgallery.com/packages/PSWriteColor"><img src="https://img.shields.io/powershellgallery/v/PSWriteColor.svg"></a>
-  <a href="https://www.powershellgallery.com/packages/PSWriteColor"><img src="https://img.shields.io/powershellgallery/vpre/PSWriteColor.svg?label=powershell%20gallery%20preview&colorB=yellow"></a>
+  <a href="https://www.powershellgallery.com/packages/PSWriteColor"><img src="https://img.shields.io/powershellgallery/v/PSWriteColor.svg?label=powershell%20gallery%20preview&colorB=yellow&include_prereleases"></a>
   <a href="https://github.com/EvotecIT/PSWriteColor"><img src="https://img.shields.io/github/license/EvotecIT/PSWriteColor.svg"></a>
 </p>
 
