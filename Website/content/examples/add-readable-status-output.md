@@ -17,7 +17,7 @@ It comes from the source example at `Examples/Write-Color-Examples.ps1`.
 ## Example
 
 ```powershell
-Import-Module .\PSWriteColor.psd1 -Force
+Import-Module PSWriteColor
 
 Write-Color "[i] ", "Sending email...." -Color White, White -NoNewLine
 if ($true) {
@@ -38,4 +38,3 @@ Write-Color "9. ", "Press 9 to exit" -Color Yellow, Gray -LinesBefore 1
 ## Source
 
 - [Write-Color-Examples.ps1](https://github.com/EvotecIT/PSWriteColor/blob/master/Examples/Write-Color-Examples.ps1)
-

@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="utf-8"?>
+<helpItems schema="maml" xmlns="http://msh">
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10">
+    <command:details>
+      <command:name>Write-Color</command:name>
+      <command:verb>Write</command:verb>
+      <command:noun>Color</command:noun>
+      <maml:description>
+        <maml:para>Write-Color is a wrapper around Write-Host delivering a lot of additional features for easier color options.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Write-Color is a wrapper around Write-Host delivering a lot of additional features for easier color options.</maml:para>
+      <maml:para>It provides:&#xD;
+- Easy manipulation of colors,&#xD;
+- Logging output to file (log)&#xD;
+- Nice formatting options out of the box.&#xD;
+- Ability to use aliases for parameters</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem parameterSetName="__AllParameterSets">
+        <maml:name>Write-Color</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="B,BGC">
+          <maml:name>BackGroundColor</maml:name>
+          <maml:description>
+            <maml:para>Background color of each text segment. When supplied, its count must match Color.&#xD;
+Remaining segments use the first background color when there are more strings than colors.&#xD;
+Available colors are: Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">ConsoleColor[]</command:parameterValue>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" variableLength="false">Black</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">DarkBlue</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">DarkGreen</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">DarkCyan</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">DarkRed</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">DarkMagenta</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">DarkYellow</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">Gray</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">DarkGray</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">Blue</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">Green</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">Cyan</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">Red</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">Magenta</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">Yellow</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">White</command:parameterValue>
+          </command:parameterValueGroup>
+          <dev:type>
+            <maml:name>ConsoleColor[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="C,ForegroundColor,FGC">
+          <maml:name>Color</maml:name>
+          <maml:description>
+            <maml:para>Color of each text segment. Remaining segments use the first color when there are more strings than colors.&#xD;
+Available colors are: Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">ConsoleColor[]</command:parameterValue>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" variableLength="false">Black</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">DarkBlue</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">DarkGreen</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">DarkCyan</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">DarkRed</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">DarkMagenta</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">DarkYellow</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">Gray</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">DarkGray</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">Blue</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">Green</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">Cyan</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">Red</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">Magenta</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">Yellow</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">White</command:parameterValue>
+          </command:parameterValueGroup>
+          <dev:type>
+            <maml:name>ConsoleColor[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>White</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="8" aliases="DateFormat,TimeFormat">
+          <maml:name>DateTimeFormat</maml:name>
+          <maml:description>
+            <maml:para>Custom date and time format string. Default is yyyy-MM-dd HH:mm:ss</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>yyyy-MM-dd HH:mm:ss</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="11" aliases="none">
+          <maml:name>Encoding</maml:name>
+          <maml:description>
+            <maml:para>Encoding of the log file. Default is Unicode.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" variableLength="false">unknown</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">string</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">unicode</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">bigendianunicode</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">utf8</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">utf7</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">utf32</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">ascii</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">default</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">oem</command:parameterValue>
+          </command:parameterValueGroup>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>Unicode</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>HorizontalCenter</maml:name>
+          <maml:description>
+            <maml:para>Centers single-line text, including its padding, in the visible host window. Odd extra space goes on the right.&#xD;
+Indentation and timestamps are added after centering. If the host cannot report its window width, no centering spaces are added.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="5" aliases="none">
+          <maml:name>LinesAfter</maml:name>
+          <maml:description>
+            <maml:para>Number of empty lines after text. Default is 0.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="4" aliases="none">
+          <maml:name>LinesBefore</maml:name>
+          <maml:description>
+            <maml:para>Number of empty lines before text. Default is 0.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="7" aliases="L">
+          <maml:name>LogFile</maml:name>
+          <maml:description>
+            <maml:para>Literal path to the log file. If not specified no log file will be created.&#xD;
+Appends joined text with a newline, regardless of NoNewLine. Parent directories must already exist.&#xD;
+File-write failures produce warnings after up to LogRetry attempts.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="10" aliases="none">
+          <maml:name>LogRetry</maml:name>
+          <maml:description>
+            <maml:para>Maximum number of file-write attempts, including the first attempt. Must be at least 1. Default is 2.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>2</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="9" aliases="LogTimeStamp">
+          <maml:name>LogTime</maml:name>
+          <maml:description>
+            <maml:para>If set to $true it will add time to log file. Default is $true.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">Boolean</command:parameterValue>
+          <dev:type>
+            <maml:name>Boolean</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>True</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="named" aliases="HideConsole">
+          <maml:name>NoConsoleOutput</maml:name>
+          <maml:description>
+            <maml:para>Switch to not output to console. Default all output goes to console.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>NoNewLine</maml:name>
+          <maml:description>
+            <maml:para>Switch to not add new line at the end of the output. Default is not set.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="13" aliases="PC">
+          <maml:name>PadCenter</maml:name>
+          <maml:description>
+            <maml:para>Minimum combined text width, with padding on both sides. An odd extra character goes on the right.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="15" aliases="PadChar">
+          <maml:name>PadCharacter</maml:name>
+          <maml:description>
+            <maml:para>Single character used for padding. Default is a space.&#xD;
+Padding uses the first foreground/background colors. With padding enabled, LinesBefore and LinesAfter&#xD;
+also fill the requested width with this character and these colors.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">Char</command:parameterValue>
+          <dev:type>
+            <maml:name>Char</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="12" aliases="PL">
+          <maml:name>PadLeft</maml:name>
+          <maml:description>
+            <maml:para>Minimum combined text width, with padding before the first colored segment. Default is 0 (disabled).&#xD;
+Width counts string characters, not terminal display cells; use single-line text without tabs or ANSI sequences.&#xD;
+Text is never truncated. Indentation and timestamps are outside this width; log text is unchanged.&#xD;
+Specify only one positive padding width per call.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="14" aliases="PR">
+          <maml:name>PadRight</maml:name>
+          <maml:description>
+            <maml:para>Minimum combined text width, with padding after the last colored segment.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ShowTime</maml:name>
+          <maml:description>
+            <maml:para>Switch to add time to console output. Default is not set.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="6" aliases="none">
+          <maml:name>StartSpaces</maml:name>
+          <maml:description>
+            <maml:para>Number of spaces to add before text. Default is 0.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="3" aliases="Indent">
+          <maml:name>StartTab</maml:name>
+          <maml:description>
+            <maml:para>Number of tabs to add before text. Default is 0.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="T">
+          <maml:name>Text</maml:name>
+          <maml:description>
+            <maml:para>Text to display on screen and write to log file if specified.&#xD;
+Accepts an array of strings.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="B,BGC">
+        <maml:name>BackGroundColor</maml:name>
+        <maml:description>
+          <maml:para>Background color of each text segment. When supplied, its count must match Color.&#xD;
+Remaining segments use the first background color when there are more strings than colors.&#xD;
+Available colors are: Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">ConsoleColor[]</command:parameterValue>
+        <command:parameterValueGroup>
+          <command:parameterValue required="false" variableLength="false">Black</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">DarkBlue</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">DarkGreen</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">DarkCyan</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">DarkRed</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">DarkMagenta</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">DarkYellow</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">Gray</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">DarkGray</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">Blue</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">Green</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">Cyan</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">Red</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">Magenta</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">Yellow</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">White</command:parameterValue>
+        </command:parameterValueGroup>
+        <dev:type>
+          <maml:name>ConsoleColor[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="C,ForegroundColor,FGC">
+        <maml:name>Color</maml:name>
+        <maml:description>
+          <maml:para>Color of each text segment. Remaining segments use the first color when there are more strings than colors.&#xD;
+Available colors are: Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">ConsoleColor[]</command:parameterValue>
+        <command:parameterValueGroup>
+          <command:parameterValue required="false" variableLength="false">Black</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">DarkBlue</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">DarkGreen</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">DarkCyan</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">DarkRed</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">DarkMagenta</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">DarkYellow</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">Gray</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">DarkGray</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">Blue</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">Green</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">Cyan</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">Red</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">Magenta</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">Yellow</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">White</command:parameterValue>
+        </command:parameterValueGroup>
+        <dev:type>
+          <maml:name>ConsoleColor[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>White</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="8" aliases="DateFormat,TimeFormat">
+        <maml:name>DateTimeFormat</maml:name>
+        <maml:description>
+          <maml:para>Custom date and time format string. Default is yyyy-MM-dd HH:mm:ss</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>yyyy-MM-dd HH:mm:ss</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="11" aliases="none">
+        <maml:name>Encoding</maml:name>
+        <maml:description>
+          <maml:para>Encoding of the log file. Default is Unicode.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+        <command:parameterValueGroup>
+          <command:parameterValue required="false" variableLength="false">unknown</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">string</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">unicode</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">bigendianunicode</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">utf8</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">utf7</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">utf32</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">ascii</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">default</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">oem</command:parameterValue>
+        </command:parameterValueGroup>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>Unicode</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>HorizontalCenter</maml:name>
+        <maml:description>
+          <maml:para>Centers single-line text, including its padding, in the visible host window. Odd extra space goes on the right.&#xD;
+Indentation and timestamps are added after centering. If the host cannot report its window width, no centering spaces are added.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="5" aliases="none">
+        <maml:name>LinesAfter</maml:name>
+        <maml:description>
+          <maml:para>Number of empty lines after text. Default is 0.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="4" aliases="none">
+        <maml:name>LinesBefore</maml:name>
+        <maml:description>
+          <maml:para>Number of empty lines before text. Default is 0.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="7" aliases="L">
+        <maml:name>LogFile</maml:name>
+        <maml:description>
+          <maml:para>Literal path to the log file. If not specified no log file will be created.&#xD;
+Appends joined text with a newline, regardless of NoNewLine. Parent directories must already exist.&#xD;
+File-write failures produce warnings after up to LogRetry attempts.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="10" aliases="none">
+        <maml:name>LogRetry</maml:name>
+        <maml:description>
+          <maml:para>Maximum number of file-write attempts, including the first attempt. Must be at least 1. Default is 2.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>2</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="9" aliases="LogTimeStamp">
+        <maml:name>LogTime</maml:name>
+        <maml:description>
+          <maml:para>If set to $true it will add time to log file. Default is $true.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">Boolean</command:parameterValue>
+        <dev:type>
+          <maml:name>Boolean</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>True</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="named" aliases="HideConsole">
+        <maml:name>NoConsoleOutput</maml:name>
+        <maml:description>
+          <maml:para>Switch to not output to console. Default all output goes to console.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>NoNewLine</maml:name>
+        <maml:description>
+          <maml:para>Switch to not add new line at the end of the output. Default is not set.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="13" aliases="PC">
+        <maml:name>PadCenter</maml:name>
+        <maml:description>
+          <maml:para>Minimum combined text width, with padding on both sides. An odd extra character goes on the right.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="15" aliases="PadChar">
+        <maml:name>PadCharacter</maml:name>
+        <maml:description>
+          <maml:para>Single character used for padding. Default is a space.&#xD;
+Padding uses the first foreground/background colors. With padding enabled, LinesBefore and LinesAfter&#xD;
+also fill the requested width with this character and these colors.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">Char</command:parameterValue>
+        <dev:type>
+          <maml:name>Char</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="12" aliases="PL">
+        <maml:name>PadLeft</maml:name>
+        <maml:description>
+          <maml:para>Minimum combined text width, with padding before the first colored segment. Default is 0 (disabled).&#xD;
+Width counts string characters, not terminal display cells; use single-line text without tabs or ANSI sequences.&#xD;
+Text is never truncated. Indentation and timestamps are outside this width; log text is unchanged.&#xD;
+Specify only one positive padding width per call.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="14" aliases="PR">
+        <maml:name>PadRight</maml:name>
+        <maml:description>
+          <maml:para>Minimum combined text width, with padding after the last colored segment.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ShowTime</maml:name>
+        <maml:description>
+          <maml:para>Switch to add time to console output. Default is not set.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="6" aliases="none">
+        <maml:name>StartSpaces</maml:name>
+        <maml:description>
+          <maml:para>Number of spaces to add before text. Default is 0.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="3" aliases="Indent">
+        <maml:name>StartTab</maml:name>
+        <maml:description>
+          <maml:para>Number of tabs to add before text. Default is 0.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="T">
+        <maml:name>Text</maml:name>
+        <maml:description>
+          <maml:para>Text to display on screen and write to log file if specified.&#xD;
+Accepts an array of strings.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <maml:introduction>
+          <maml:para>PS &gt; </maml:para>
+        </maml:introduction>
+        <dev:code>Write-Color -Text "Red ", "Green ", "Yellow " -Color Red,Green,Yellow</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <maml:introduction>
+          <maml:para>PS &gt; </maml:para>
+        </maml:introduction>
+        <dev:code>Write-Color -Text "This is text in Green ",
+                  "followed by red ",
+                  "and then we have Magenta... ",
+                  "isn't it fun? ",
+                  "Here goes DarkCyan" -Color Green,Red,Magenta,White,DarkCyan</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <maml:introduction>
+          <maml:para>PS &gt; </maml:para>
+        </maml:introduction>
+        <dev:code>Write-Color -Text "This is text in Green ",
+                  "followed by red ",
+                  "and then we have Magenta... ",
+                  "isn't it fun? ",
+                  "Here goes DarkCyan" -Color Green,Red,Magenta,White,DarkCyan -StartTab 3 -LinesBefore 1 -LinesAfter 1</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
+        <maml:introduction>
+          <maml:para>PS &gt; </maml:para>
+        </maml:introduction>
+        <dev:code>Write-Color "1. ", "Option 1" -Color Yellow, Green
+Write-Color "2. ", "Option 2" -Color Yellow, Green
+Write-Color "3. ", "Option 3" -Color Yellow, Green
+Write-Color "4. ", "Option 4" -Color Yellow, Green
+Write-Color "9. ", "Press 9 to exit" -Color Yellow, Gray -LinesBefore 1</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 5 --------------------------</maml:title>
+        <maml:introduction>
+          <maml:para>PS &gt; </maml:para>
+        </maml:introduction>
+        <dev:code>$LogPath = Join-Path ([IO.Path]::GetTempPath()) 'PSWriteColor.log'
+Write-Color -LinesBefore 2 -Text "This little ","message is ", "written to log ", "file as well." `
+            -Color Yellow, White, Green, Red, Red -LogFile $LogPath -TimeFormat "yyyy-MM-dd HH:mm:ss"
+Write-Color -Text "This can get ","handy if ", "want to display things, and log actions to file ", "at the same time." `
+            -Color Yellow, White, Green, Red, Red -LogFile $LogPath</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 6 --------------------------</maml:title>
+        <maml:introduction>
+          <maml:para>PS &gt; </maml:para>
+        </maml:introduction>
+        <dev:code>Write-Color -T "My text", " is ", "all colorful" -C Yellow, Red, Green -B Green, Green, Yellow
+Write-Color -t "my text" -c yellow -b green
+Write-Color -text "my text" -c red</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 7 --------------------------</maml:title>
+        <maml:introduction>
+          <maml:para>PS &gt; </maml:para>
+        </maml:introduction>
+        <dev:code>$LogPath = Join-Path ([IO.Path]::GetTempPath()) 'PSWriteColor.log'
+Write-Color -Text "Testuję czy się ładnie zapisze, czy będą problemy" -Encoding unicode -LogFile $LogPath -Color Red -NoConsoleOutput</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 8 --------------------------</maml:title>
+        <maml:introduction>
+          <maml:para>PS &gt; </maml:para>
+        </maml:introduction>
+        <dev:code>Write-Color '1. ', 'Start backup' -Color Yellow, White -BackgroundColor Blue, Blue -PadRight 32 -LinesBefore 1
+Write-Color '9. ', 'Exit' -Color Yellow, White -BackgroundColor Blue, Blue -PadRight 32 -LinesAfter 1
+Write-Color ' MENU ' -PadCenter 32 -PadCharacter '-' -Color Cyan</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+</helpItems>

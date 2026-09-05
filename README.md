@@ -73,7 +73,40 @@ Thank you for considering supporting this project!
 
 ```powershell
 Install-Module -Name "PSWriteColor" -Force
+Import-Module PSWriteColor
 ```
+
+## How output works
+
+`Write-Color` joins the supplied text segments without inserting separators and writes each segment with its assigned color. When there are fewer colors than segments, the remaining segments use the first color. Background colors, when supplied, must have the same count as foreground colors. `Write-Colour` is an alias; `wc` is not exported.
+
+The command writes host output on PowerShell's information stream and returns no objects on the success pipeline. Use it for status messages and prompts, rather than data that another command needs to process. `-NoNewLine` lets the next message continue on the same console line.
+
+`-LogFile` appends the original joined text to a literal filename, optionally prefixed with a timestamp. Console spacing, padding, and `-NoNewLine` do not change log entries. Parent directories must exist. `-LogRetry` is the maximum number of attempts, including the first; exhausted attempts produce warnings. Logging still runs under `$WhatIfPreference`, and `-NoConsoleOutput` suppresses only console output.
+
+## Fixed-width rows
+
+```powershell
+Write-Color '1. ', 'Start backup' -Color Yellow, White -PadRight 32
+Write-Color ' MENU ' -PadCenter 32 -PadCharacter '-' -Color Cyan
+Write-Color 'Total: ', '42' -Color Gray, Green -PadLeft 32
+```
+
+Choose one positive padding width. Padding applies to the combined text without truncating longer messages, and center padding puts an odd extra character on the right. Padding and filled `-LinesBefore`/`-LinesAfter` rows use the first foreground and background colors. Indentation and timestamps sit outside the requested width.
+
+`-HorizontalCenter` centers the text, including padding, in the visible host window before adding indentation or a timestamp. Blank rows keep their existing position at the start of the line. Hosts without window dimensions emit the text without added centering spaces. Width calculations count string characters for single-line text; ANSI sequences, tabs, multiline layout, and wide Unicode characters require caller-managed display-width handling.
+
+## Development
+
+The module supports Windows PowerShell 5.1 and PowerShell 7. From a checkout, import `./PSWriteColor.psd1` to exercise the source. With Pester 5.7.1 installed, run `Invoke-Pester ./Tests`. The tests cover the imported command, host output, logging, padding, and centering.
+
+Build and documentation generation use PSPublishModule. Regenerate command help from `Public/Write-Color.ps1` with:
+
+```powershell
+./Build/Manage-Module.ps1 -ConfigurationGateMode Documentation
+```
+
+This updates `Docs` and `en-US` without signing or publishing. Do not edit generated command help directly. For an unsigned local build, use `./Build/Manage-Module.ps1 -SignModule $false -SkipInstall`; normal builds retain the configured certificate-based signing.
 
 # Examples
 
@@ -115,10 +148,11 @@ Write-Color "2. ", "Option 2" -Color Yellow, Green
 Write-Color "3. ", "Option 3" -Color Yellow, Green
 Write-Color "4. ", "Option 4" -Color Yellow, Green
 Write-Color "9. ", "Press 9 to exit" -Color Yellow, Gray -LinesBefore 1
+$LogPath = Join-Path ([IO.Path]::GetTempPath()) 'PSWriteColor.log'
 Write-Color -LinesBefore 2 -Text "This little ", "message is ", "written to log ", "file as well." `
-        -Color Yellow, White, Green, Red, Red -LogFile "C:\testing.txt" -TimeFormat "yyyy-MM-dd HH:mm:ss"
+        -Color Yellow, White, Green, Red, Red -LogFile $LogPath -TimeFormat "yyyy-MM-dd HH:mm:ss"
 Write-Color -Text "This can get ", "handy if ", "want to display things, and log actions to file ", "at the same time." `
-        -Color Yellow, White, Green, Red, Red -LogFile "C:\testing.txt"
+        -Color Yellow, White, Green, Red, Red -LogFile $LogPath
 ```
 
 ```powershell
@@ -126,5 +160,5 @@ Write-Color -Text "This can get ", "handy if ", "want to display things, and log
 Write-Color -T "My text", " is ", "all colorful" -C Yellow, Red, Green -B Green, Green, Yellow
 Write-Color -T "My text", " is ", "all colorful" -C Yellow, Red, Green -B Red, Green, Green
 # Example 5 with aliases
-wc -t "my text" -C Red
+Write-Colour -t "my text" -C Red
 ```

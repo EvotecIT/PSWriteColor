@@ -17,7 +17,7 @@ It comes from the source example at `Examples/Write-Color-ExamplesFunctionalMenu
 ## Example
 
 ```powershell
-Import-Module .\PSWriteColor.psd1 -Force
+Import-Module PSWriteColor
 
 $line = '========================================================='
 

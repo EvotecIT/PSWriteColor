@@ -1,5 +1,10 @@
+param(
+    [string] $ModulePath = (Join-Path $PSScriptRoot '../PSWriteColor.psd1')
+)
+
 BeforeAll {
-    Import-Module (Join-Path $PSScriptRoot '../PSWriteColor.psd1') -Force
+    Get-Module PSWriteColor | Remove-Module -Force
+    Import-Module $ModulePath -Force
 
     function Get-ColorOutput {
         param([hashtable] $Parameters)
@@ -80,11 +85,11 @@ Describe 'Write-Color fixed-width padding' {
         Get-ColorOutput @{ Text = 'abc'; PadLeft = 5; PadCharacter = '.'; StartTab = 1; StartSpaces = 2; ShowTime = $true; DateTimeFormat = "'time'" } | Should -BeExactly "`t  [time] ..abc`n"
     }
 
-    It 'centers the padded width in the host buffer' {
-        $Width = $Host.UI.RawUI.BufferSize.Width
+    It 'centers the padded width in the host window' {
+        $Width = $Host.UI.RawUI.WindowSize.Width
         $Expected = 'a..'
         if ($Width -ge 3) {
-            $Expected = (' ' * [Math]::Max(0, $Width / 2 - [Math]::Floor(3 / 2))) + $Expected
+            $Expected = (' ' * [Math]::Floor(($Width - 3) / 2)) + $Expected
         }
         Get-ColorOutput @{ Text = 'a'; PadRight = 3; PadCharacter = '.'; HorizontalCenter = $true; NoNewLine = $true } | Should -BeExactly $Expected
     }

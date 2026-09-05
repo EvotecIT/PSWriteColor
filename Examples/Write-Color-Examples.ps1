@@ -1,4 +1,8 @@
-Import-Module .\PSWriteColor.psd1 -Force
+param(
+    [string] $LogPath = (Join-Path ([IO.Path]::GetTempPath()) 'PSWriteColor-examples.log')
+)
+
+Import-Module PSWriteColor
 
 # Example 1
 Write-Color "[i] ", "Parameter in configuration of ", "EmailParameters.EmailFrom", " exists." -Color White, White, Green, White -ShowTime
@@ -36,9 +40,9 @@ Write-Color "4. ", "Option 4" -Color Yellow, Green
 Write-Color "9. ", "Press 9 to exit" -Color Yellow, Gray -LinesBefore 1
 
 Write-Color -LinesBefore 2 -Text "This little ", "message is ", "written to log ", "file as well." `
-				-Color Yellow, White, Green, Red, Red -LogFile "C:\testing.txt" -TimeFormat "yyyy-MM-dd HH:mm:ss"
+				-Color Yellow, White, Green, Red, Red -LogFile $LogPath -TimeFormat "yyyy-MM-dd HH:mm:ss"
 Write-Color -Text "This can get ", "handy if ", "want to display things, and log actions to file ", "at the same time." `
-				-Color Yellow, White, Green, Red, Red -LogFile "C:\testing.txt" -LogTime $false
+				-Color Yellow, White, Green, Red, Red -LogFile $LogPath -LogTime $false
 
 # Example 4 with backgrund colors and usage of aliases
 Write-Color -T "My text", " is ", "all colorful" -C Yellow, Red, Green -B Green, Green, Yellow
