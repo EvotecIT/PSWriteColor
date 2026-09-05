@@ -108,6 +108,18 @@ Build and documentation generation use PSPublishModule. Regenerate command help 
 
 This updates `Docs` and `en-US` without signing or publishing. Do not edit generated command help directly. For an unsigned local build, use `./Build/Manage-Module.ps1 -SignModule $false -SkipInstall`; normal builds retain the configured certificate-based signing.
 
+Publishing is an explicit mode. `Documentation`, `Manifest`, and the default `Build` mode do not publish or read publishing keys. `Publish` builds and signs the module, then publishes to PowerShell Gallery and the `EvotecIT/PSWriteColor` GitHub releases:
+
+```powershell
+./Build/Manage-Module.ps1 -ConfigurationGateMode Publish -SkipInstall `
+    -PowerShellGalleryApiKeyPath '/path/to/PowerShellGalleryAPI.txt' `
+    -GitHubApiKeyPath '/path/to/GitHubAPI.txt'
+```
+
+The key-file parameters have Windows workstation defaults under `C:\Support\Important`; pass the appropriate local paths on other machines. The configured signing certificate is the Evotec Services certificate ending in `6DD30F1A`, valid through December 2028. Signed builds require access to its private key on the signing workstation. `-RunMode` is an alias for `-ConfigurationGateMode`.
+
+Existing command names, parameter positions, defaults, and first-color fallback are retained. The fixes intentionally change edge cases: negative spacing and nonpositive `LogRetry` values are rejected, log paths no longer expand wildcards, and horizontal centering uses the visible window with corrected rounding. New padding parameters can also make previously abbreviated parameter names ambiguous; use full names or the documented aliases in scripts.
+
 # Examples
 
 ![Image](https://evotec.xyz/wp-content/uploads/2018/05/img_5af07118e9f87.png)

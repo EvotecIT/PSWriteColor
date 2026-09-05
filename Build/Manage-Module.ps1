@@ -1,8 +1,13 @@
 param(
-    [ValidateSet('Documentation', 'Manifest', 'Build')]
+    [Alias('RunMode')]
+    [ValidateSet('Documentation', 'Manifest', 'Build', 'Publish')]
     [string] $ConfigurationGateMode = 'Build',
     [bool] $SignModule = $true,
-    [switch] $SkipInstall
+    [switch] $SkipInstall,
+
+    # Default examples for the maintainer's Windows workstation; override on other machines.
+    [string] $PowerShellGalleryApiKeyPath = 'C:\Support\Important\PowerShellGalleryAPI.txt',
+    [string] $GitHubApiKeyPath = 'C:\Support\Important\GitHubAPI.txt'
 )
 
 Import-Module PSPublishModule -Force -ErrorAction Stop
@@ -81,8 +86,11 @@ Build-Module -ModuleName 'PSWriteColor' {
     New-ConfigurationFormat -ApplyTo 'DefaultPSD1', 'DefaultPSM1' -EnableFormatting
     # when creating PSD1 use special style without comments and with only required parameters
     New-ConfigurationImportModule -ImportSelf
-    New-ConfigurationBuild -Enable:$true -SignModule:$SignModule -MergeModuleOnBuild -MergeFunctionsFromApprovedModules -CertificateThumbprint '483292C9E317AA13B07BB7A96AE9D1A5ED9E7703'
+    New-ConfigurationBuild -Enable:$true -SignModule:$SignModule -MergeModuleOnBuild -MergeFunctionsFromApprovedModules -CertificateThumbprint '92E95FB58EFFA6A4A75E77A33CDD6BFE6DD30F1A'
 
     New-ConfigurationArtefact -Type Unpacked -Enable -Path "$PSScriptRoot\..\Artefacts\Unpacked" -AddRequiredModules
     New-ConfigurationArtefact -Type Packed -Enable -Path "$PSScriptRoot\..\Artefacts\Packed" -ArtefactName '<ModuleName>.v<ModuleVersion>.zip'
+
+    New-ConfigurationPublish -Type PowerShellGallery -FilePath $PowerShellGalleryApiKeyPath -Enabled
+    New-ConfigurationPublish -Type GitHub -FilePath $GitHubApiKeyPath -UserName 'EvotecIT' -RepositoryName 'PSWriteColor' -GenerateReleaseNotes -Enabled
 } -SkipInstall:$SkipInstall
