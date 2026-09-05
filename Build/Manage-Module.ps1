@@ -1,5 +1,16 @@
-Clear-Host
-Import-Module C:\Support\GitHub\PSPublishModule\PSPublishModule.psd1 -Force
+param(
+    [Alias('RunMode')]
+    [ValidateSet('Documentation', 'Manifest', 'Build', 'Publish')]
+    [string] $ConfigurationGateMode = 'Build',
+    [bool] $SignModule = $true,
+    [switch] $SkipInstall,
+
+    # Default examples for the maintainer's Windows workstation; override on other machines.
+    [string] $PowerShellGalleryApiKeyPath = 'C:\Support\Important\PowerShellGalleryAPI.txt',
+    [string] $GitHubApiKeyPath = 'C:\Support\Important\GitHubAPI.txt'
+)
+
+Import-Module PSPublishModule -Force -ErrorAction Stop
 
 Build-Module -ModuleName 'PSWriteColor' {
     # Usual defaults as per standard module
@@ -28,6 +39,8 @@ Build-Module -ModuleName 'PSWriteColor' {
         IconUri              = 'https://evotec.xyz/wp-content/uploads/2018/10/PSWriteColor.png'
     }
     New-ConfigurationManifest @Manifest
+    New-ConfigurationGate -Mode $ConfigurationGateMode
+    New-ConfigurationDocumentation -Enable -Path 'Docs' -PathReadme 'Docs/Readme.md' -SyncExternalHelpToProjectRoot
 
     New-ConfigurationModuleSkip -IgnoreModuleName @(
         # this are builtin into PowerShell, so not critical
@@ -73,11 +86,11 @@ Build-Module -ModuleName 'PSWriteColor' {
     New-ConfigurationFormat -ApplyTo 'DefaultPSD1', 'DefaultPSM1' -EnableFormatting
     # when creating PSD1 use special style without comments and with only required parameters
     New-ConfigurationImportModule -ImportSelf
-    New-ConfigurationBuild -Enable:$true -SignModule -MergeModuleOnBuild -MergeFunctionsFromApprovedModules -CertificateThumbprint '483292C9E317AA13B07BB7A96AE9D1A5ED9E7703'
+    New-ConfigurationBuild -Enable:$true -SignModule:$SignModule -MergeModuleOnBuild -MergeFunctionsFromApprovedModules -CertificateThumbprint '92E95FB58EFFA6A4A75E77A33CDD6BFE6DD30F1A'
 
     New-ConfigurationArtefact -Type Unpacked -Enable -Path "$PSScriptRoot\..\Artefacts\Unpacked" -AddRequiredModules
     New-ConfigurationArtefact -Type Packed -Enable -Path "$PSScriptRoot\..\Artefacts\Packed" -ArtefactName '<ModuleName>.v<ModuleVersion>.zip'
 
-    #New-ConfigurationPublish -Type PowerShellGallery -FilePath 'C:\Support\Important\PowerShellGalleryAPI.txt' -Enabled -Verbose
-    #New-ConfigurationPublish -Type GitHub -FilePath 'C:\Support\Important\GitHubAPI.txt' -UserName 'EvotecIT' -Enabled
-}
+    New-ConfigurationPublish -Type PowerShellGallery -FilePath $PowerShellGalleryApiKeyPath -Enabled
+    New-ConfigurationPublish -Type GitHub -FilePath $GitHubApiKeyPath -UserName 'EvotecIT' -RepositoryName 'PSWriteColor' -GenerateReleaseNotes -Enabled
+} -SkipInstall:$SkipInstall

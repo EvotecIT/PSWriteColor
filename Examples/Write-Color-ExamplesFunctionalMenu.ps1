@@ -1,4 +1,4 @@
-Import-Module .\PSWriteColor.psd1 -Force
+Import-Module PSWriteColor
 
 $line = '========================================================='
 
@@ -32,7 +32,7 @@ do {
     $inputData = Read-Host 'Select'
 
     Switch ($inputData) {
-        0 { Exit }
+        0 { } # Let the loop finish without closing the caller's PowerShell session.
         default {
             Write-Color 'Not implemented...', ' Press any key to continue!' -Color Red, Yellow -LinesBefore 1
             [void][System.Console]::ReadKey($true)
