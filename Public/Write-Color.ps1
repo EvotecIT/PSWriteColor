@@ -1,83 +1,138 @@
-﻿function Write-Color {
+function Write-Color {
     <#
-	.SYNOPSIS
-        Write-Color is a wrapper around Write-Host.
+    .SYNOPSIS
+    Write-Color is a wrapper around Write-Host delivering a lot of additional features for easier color options.
 
-        It provides:
-        - Easy manipulation of colors,
-        - Logging output to file (log)
-        - Nice formatting options out of the box.
+    .DESCRIPTION
+    Write-Color is a wrapper around Write-Host delivering a lot of additional features for easier color options.
 
-	.DESCRIPTION
-        Author: przemyslaw.klys at evotec.pl
-        Project website: https://evotec.xyz/hub/scripts/write-color-ps1/
-        Project support: https://github.com/EvotecIT/PSWriteColor
+    It provides:
+    - Easy manipulation of colors,
+    - Logging output to file (log)
+    - Nice formatting options out of the box.
+    - Ability to use aliases for parameters
 
-        Original idea: Josh (https://stackoverflow.com/users/81769/josh)
+    .PARAMETER Text
+    Text to display on screen and write to log file if specified.
+    Accepts an array of strings.
 
-	.EXAMPLE
-	Write-Color -Text "Red ", "Green ", "Yellow " -Color Red,Green,Yellow
+    .PARAMETER Color
+    Color of the text. Accepts an array of colors. If more than one color is specified it will loop through colors for each string.
+    If there are more strings than colors it will start from the beginning.
+    Available colors are: Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White
 
-	.EXAMPLE
-	Write-Color -Text "This is text in Green ",
-					"followed by red ",
-					"and then we have Magenta... ",
-					"isn't it fun? ",
-					"Here goes DarkCyan" -Color Green,Red,Magenta,White,DarkCyan
+    .PARAMETER BackGroundColor
+    Color of the background. Accepts an array of colors. If more than one color is specified it will loop through colors for each string.
+    If there are more strings than colors it will start from the beginning.
+    Available colors are: Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White
 
-	.EXAMPLE
-	Write-Color -Text "This is text in Green ",
-					"followed by red ",
-					"and then we have Magenta... ",
-					"isn't it fun? ",
-                    "Here goes DarkCyan" -Color Green,Red,Magenta,White,DarkCyan -StartTab 3 -LinesBefore 1 -LinesAfter 1
+    .PARAMETER StartTab
+    Number of tabs to add before text. Default is 0.
 
-	.EXAMPLE
-	Write-Color "1. ", "Option 1" -Color Yellow, Green
-	Write-Color "2. ", "Option 2" -Color Yellow, Green
-	Write-Color "3. ", "Option 3" -Color Yellow, Green
-	Write-Color "4. ", "Option 4" -Color Yellow, Green
-	Write-Color "9. ", "Press 9 to exit" -Color Yellow, Gray -LinesBefore 1
+    .PARAMETER LinesBefore
+    Number of empty lines before text. Default is 0.
 
-     .EXAMPLE
-	Write-Color -LinesBefore 2 -Text "This little ","message is ", "written to log ", "file as well." `
-				-Color Yellow, White, Green, Red, Red -LogFile "C:\testing.txt" -TimeFormat "yyyy-MM-dd HH:mm:ss"
-	Write-Color -Text "This can get ","handy if ", "want to display things, and log actions to file ", "at the same time." `
-				-Color Yellow, White, Green, Red, Red -LogFile "C:\testing.txt"
+    .PARAMETER LinesAfter
+    Number of empty lines after text. Default is 0.
 
-	.EXAMPLE
-	# Added in 0.5
-	Write-Color -T "My text", " is ", "all colorful" -C Yellow, Red, Green -B Green, Green, Yellow
-	wc -t "my text" -c yellow -b green
-	wc -text "my text" -c red
+    .PARAMETER StartSpaces
+    Number of spaces to add before text. Default is 0.
 
-	.EXAMPLE  Padding in combination with LinesBefore and LinesAfter
-     Write-Color -Text "  $('-'.PadRight(46,'-'))  " -PadRight 50 -PadCharacter ' ' -LinesBefore 1 -Color White -BackGroundColor Blue
-     Write-Color -Text "  | $('Table Row 1'.PadRight(42,' ')) |  " -PadRight 50 -PadCharacter ' ' -Color White -BackGroundColor Blue
-     Write-Color -Text "  $('-'.PadRight(46,'-'))  " -Color White -BackGroundColor Blue
-     Write-Color -Text "  | $('Table Row 2'.PadRight(42,' ')) |  " -PadRight 50 -PadCharacter ' ' -Color White -BackGroundColor Blue
-     Write-Color -Text "  $('-'.PadRight(46,'-'))  " -Color White -BackGroundColor Blue
-     Write-Color -Text "  | $('Table Row 3'.PadRight(42,' ')) |  " -PadRight 50 -PadCharacter ' ' -Color White -BackGroundColor Blue
-     Write-Color -Text "  $('-'.PadRight(46,'-'))  " -Color White -BackGroundColor Blue
-     Write-Color -Text "  | $('Table Row 4'.PadRight(42,' ')) |  " -PadRight 50 -PadCharacter ' ' -Color White -BackGroundColor Blue
-     Write-Color -Text "  $('-'.PadRight(46,'-'))  " -Color White -BackGroundColor Blue
-     Write-Color -Text "  | $('Table Row 5'.PadRight(42,' ')) |  " -PadRight 50 -PadCharacter ' ' -Color White -BackGroundColor Blue
-     Write-Color -Text "  $('-'.PadRight(46,'-'))  " -PadRight 50 -PadCharacter ' ' -LinesAfter 1 -Color White -BackGroundColor Blue
+    .PARAMETER LogFile
+    Path to log file. If not specified no log file will be created.
 
-	.NOTES
-        Additional Notes:
-        - TimeFormat https://msdn.microsoft.com/en-us/library/8kb3ddd4.aspx
-	#>
-	[alias('Write-Colour')]
-	[CmdletBinding()]
-	param ([alias ('T')] [String[]]$Text,
+    .PARAMETER DateTimeFormat
+    Custom date and time format string. Default is yyyy-MM-dd HH:mm:ss
+
+    .PARAMETER LogTime
+    If set to $true it will add time to log file. Default is $true.
+
+    .PARAMETER LogRetry
+    Number of retries to write to log file, in case it can't write to it for some reason, before skipping. Default is 2.
+
+    .PARAMETER Encoding
+    Encoding of the log file. Default is Unicode.
+
+    .PARAMETER ShowTime
+    Switch to add time to console output. Default is not set.
+
+    .PARAMETER NoNewLine
+    Switch to not add new line at the end of the output. Default is not set.
+
+    .PARAMETER NoConsoleOutput
+    Switch to not output to console. Default all output goes to console.
+
+    .PARAMETER HorizontalCenter
+    Calculates the window width and inserts spaces to make the text center according to the present width of the powershell window. Default is false.
+
+    .PARAMETER PadLeft
+    Minimum combined text width, with padding before the first colored segment. Default is 0 (disabled).
+    Width counts string characters, not terminal display cells; use single-line text without tabs or ANSI sequences.
+    Text is never truncated. Indentation and timestamps are outside this width; log text is unchanged.
+    Specify only one positive padding width per call.
+
+    .PARAMETER PadCenter
+    Minimum combined text width, with padding on both sides. An odd extra character goes on the right.
+
+    .PARAMETER PadRight
+    Minimum combined text width, with padding after the last colored segment.
+
+    .PARAMETER PadCharacter
+    Single character used for padding. Default is a space.
+    Padding uses the first foreground/background colors. With padding enabled, LinesBefore and LinesAfter
+    also fill the requested width with this character and these colors.
+
+    .EXAMPLE
+    Write-Color -Text "Red ", "Green ", "Yellow " -Color Red,Green,Yellow
+
+    .EXAMPLE
+    Write-Color -Text "This is text in Green ",
+                      "followed by red ",
+                      "and then we have Magenta... ",
+                      "isn't it fun? ",
+                      "Here goes DarkCyan" -Color Green,Red,Magenta,White,DarkCyan
+
+    .EXAMPLE
+    Write-Color -Text "This is text in Green ",
+                      "followed by red ",
+                      "and then we have Magenta... ",
+                      "isn't it fun? ",
+                      "Here goes DarkCyan" -Color Green,Red,Magenta,White,DarkCyan -StartTab 3 -LinesBefore 1 -LinesAfter 1
+
+    .EXAMPLE
+    Write-Color "1. ", "Option 1" -Color Yellow, Green
+    Write-Color "2. ", "Option 2" -Color Yellow, Green
+    Write-Color "3. ", "Option 3" -Color Yellow, Green
+    Write-Color "4. ", "Option 4" -Color Yellow, Green
+    Write-Color "9. ", "Press 9 to exit" -Color Yellow, Gray -LinesBefore 1
+
+    .EXAMPLE
+    Write-Color -LinesBefore 2 -Text "This little ","message is ", "written to log ", "file as well." `
+                -Color Yellow, White, Green, Red, Red -LogFile "C:\testing.txt" -TimeFormat "yyyy-MM-dd HH:mm:ss"
+    Write-Color -Text "This can get ","handy if ", "want to display things, and log actions to file ", "at the same time." `
+                -Color Yellow, White, Green, Red, Red -LogFile "C:\testing.txt"
+
+    .EXAMPLE
+    Write-Color -T "My text", " is ", "all colorful" -C Yellow, Red, Green -B Green, Green, Yellow
+    Write-Color -t "my text" -c yellow -b green
+    Write-Color -text "my text" -c red
+
+    .EXAMPLE
+    Write-Color -Text "Testuję czy się ładnie zapisze, czy będą problemy" -Encoding unicode -LogFile 'C:\temp\testinggg.txt' -Color Red -NoConsoleOutput
+
+    .NOTES
+    Understanding Custom date and time format strings: https://learn.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings
+    Project support: https://github.com/EvotecIT/PSWriteColor
+    Original idea: Josh (https://stackoverflow.com/users/81769/josh)
+
+    #>
+    [alias('Write-Colour')]
+    [CmdletBinding()]
+    param (
+        [alias ('T')] [String[]]$Text,
         [alias ('C', 'ForegroundColor', 'FGC')] [ConsoleColor[]]$Color = [ConsoleColor]::White,
         [alias ('B', 'BGC')] [ConsoleColor[]]$BackGroundColor = $null,
         [alias ('Indent')][int] $StartTab = 0,
-	   [alias ('PL')][int] $PadLeft = 0,
-	   [alias ('PC')][int] $PadCenter = 0,
-	   [alias ('PR')][int] $PadRight = 0,
-        [alias ('PadChar')][string] $PadCharacter = ' ',
         [int] $LinesBefore = 0,
         [int] $LinesAfter = 0,
         [int] $StartSpaces = 0,
@@ -87,62 +142,122 @@
         [int] $LogRetry = 2,
         [ValidateSet('unknown', 'string', 'unicode', 'bigendianunicode', 'utf8', 'utf7', 'utf32', 'ascii', 'default', 'oem')][string]$Encoding = 'Unicode',
         [switch] $ShowTime,
-        [switch] $NoNewLine)
-    $DefaultColor = $Color[0]
-    if ($null -ne $BackGroundColor -and $BackGroundColor.Count -ne $Color.Count) {
-        Write-Error "Colors, BackGroundColors parameters count doesn't match. Terminated."
-        return
+        [switch] $NoNewLine,
+        [switch] $HorizontalCenter,
+        [alias('HideConsole')][switch] $NoConsoleOutput,
+        [alias('PL')][ValidateRange(0, [int]::MaxValue)][int] $PadLeft = 0,
+        [alias('PC')][ValidateRange(0, [int]::MaxValue)][int] $PadCenter = 0,
+        [alias('PR')][ValidateRange(0, [int]::MaxValue)][int] $PadRight = 0,
+        [alias('PadChar')][char] $PadCharacter = ' '
+    )
+    if (@($PadLeft, $PadCenter, $PadRight | Where-Object { $_ -gt 0 }).Count -gt 1) {
+        throw 'Specify only one of PadLeft, PadCenter, or PadRight with a positive width.'
     }
-    if ($PadRight -gt 0) { if ($Text.Length -ge $PadRight) { $Text = $Text.PadRight($PadRight,$PadCharacter) }
-    } elseif ($PadLeft -gt 0) { if ($Text.Length -ge $PadLeft) { $Text = $Text.PadLeft($PadLeft,$PadCharacter) }
-    } elseif ($PadCenter -gt 0) { if ($Text.Length -ge $PadCenter) { $($Pad = $($PadCenter - $Text.Length) / 2) }
-    		$Text = $($($Text.PadLeft($Pad,$PadCharacter)).PadRight($PadCenter,$PadCharacter)) }
-    if ($LinesBefore -ne 0) {
-		if ($PadLeft -gt 0) { $Object = "$($PadCharacter.PadRight($PadLeft,$PadCharacter))`n"
-		} elseif ($PadCenter -gt 0) { $Object = "$($PadCharacter.PadRight($PadCenter,$PadCharacter))`n"
-		} elseif ($PadRight -gt 0) { $Object = "$($PadCharacter.PadRight($PadRight,$PadCharacter))`n"
-		} else { $Object = "`n" }
-    		for ($i = 0; $i -lt $LinesBefore; $i++) {
-			if (($Color) -and ($BackGroundColor)) { Write-Host -Object $Object -ForegroundColor $Color -BackgroundColor $BackGroundColor -NoNewline
-			} elseif (($Color) -and (!$BackGroundColor)) { Write-Host -Object $Object -ForegroundColor $Color -NoNewline
-			} elseif ((!$Color) -and ($BackGroundColor)) { Write-Host -Object $Object -BackgroundColor $BackGroundColor -NoNewline
-			} else { Write-Host -Object $Object -NoNewline } } }
-    if ($StartTab -ne 0) { for ($i = 0; $i -lt $StartTab; $i++) { Write-Host -Object "`t" -NoNewline } }
-    if ($StartSpaces -ne 0) { for ($i = 0; $i -lt $StartSpaces; $i++) { Write-Host -Object ' ' -NoNewline } }
-    if ($ShowTime) { Write-Host -Object "[$([datetime]::Now.ToString($DateTimeFormat))] " -NoNewline }
-    if ($Text.Count -ne 0) {
-        if ($Color.Count -ge $Text.Count) { if ($null -eq $BackGroundColor) { for ($i = 0; $i -lt $Text.Length; $i++) { Write-Host -Object $Text[$i] -ForegroundColor $Color[$i] -NoNewline } } else { for ($i = 0; $i -lt $Text.Length; $i++) { Write-Host -Object $Text[$i] -ForegroundColor $Color[$i] -BackgroundColor $BackGroundColor[$i] -NoNewline } } } else {
-            if ($null -eq $BackGroundColor) {
-                for ($i = 0; $i -lt $Color.Length; $i++) { Write-Host -Object $Text[$i] -ForegroundColor $Color[$i] -NoNewline }
-                for ($i = $Color.Length; $i -lt $Text.Length; $i++) { Write-Host -Object $Text[$i] -ForegroundColor $DefaultColor -NoNewline }
+    if (-not $NoConsoleOutput) {
+        $DefaultColor = $Color[0]
+        if ($null -ne $BackGroundColor -and $BackGroundColor.Count -ne $Color.Count) {
+            Write-Error "Colors, BackGroundColors parameters count doesn't match. Terminated."
+            return
+        }
+        $PaddingWidth = [Math]::Max($PadLeft, [Math]::Max($PadCenter, $PadRight))
+        $MessageLength = 0
+        foreach ($Value in $Text) {
+            $MessageLength += $Value.Length
+        }
+        $PaddingLength = [Math]::Max(0, $PaddingWidth - $MessageLength)
+        $LeftPaddingLength = 0
+        if ($PadLeft -gt 0) {
+            $LeftPaddingLength = $PaddingLength
+        } elseif ($PadCenter -gt 0) {
+            $LeftPaddingLength = [int][Math]::Floor($PaddingLength / 2)
+        }
+        $RightPaddingLength = $PaddingLength - $LeftPaddingLength
+        $PaddingColors = @{ ForegroundColor = $DefaultColor }
+        if ($null -ne $BackGroundColor) {
+            $PaddingColors.BackgroundColor = $BackGroundColor[0]
+        }
+        $EmptyLine = "`n"
+        if ($PaddingWidth -gt 0 -and ($LinesBefore -gt 0 -or $LinesAfter -gt 0)) {
+            $EmptyLine = ([string]$PadCharacter * $PaddingWidth) + "`n"
+        }
+        for ($i = 0; $i -lt $LinesBefore; $i++) {
+            if ($PaddingWidth -gt 0) {
+                Write-Host -Object $EmptyLine @PaddingColors -NoNewline
             } else {
-                for ($i = 0; $i -lt $Color.Length; $i++) { Write-Host -Object $Text[$i] -ForegroundColor $Color[$i] -BackgroundColor $BackGroundColor[$i] -NoNewline }
-                for ($i = $Color.Length; $i -lt $Text.Length; $i++) { Write-Host -Object $Text[$i] -ForegroundColor $DefaultColor -BackgroundColor $BackGroundColor[0] -NoNewline }
+                Write-Host -Object $EmptyLine -NoNewline
+            }
+        }
+        if ($HorizontalCenter) {
+            $MessageLength = [Math]::Max($MessageLength, $PaddingWidth)
+
+            $WindowWidth = $Host.UI.RawUI.BufferSize.Width
+            $CenterPosition = [Math]::Max(0, $WindowWidth / 2 - [Math]::Floor($MessageLength / 2))
+
+            # Only write spaces to the console if window width is greater than the message length
+            if ($WindowWidth -ge $MessageLength) {
+                Write-Host ("{0}" -f (' ' * $CenterPosition)) -NoNewline
+            }
+        } # Center the line horizontally according to the powershell window size
+        if ($StartTab -ne 0) { for ($i = 0; $i -lt $StartTab; $i++) { Write-Host -Object "`t" -NoNewline } }  # Add TABS before text
+        if ($StartSpaces -ne 0) { for ($i = 0; $i -lt $StartSpaces; $i++) { Write-Host -Object ' ' -NoNewline } }  # Add SPACES before text
+        if ($ShowTime) { Write-Host -Object "[$([datetime]::Now.ToString($DateTimeFormat))] " -NoNewline } # Add Time before output
+        if ($LeftPaddingLength -gt 0) {
+            Write-Host -Object ([string]$PadCharacter * $LeftPaddingLength) @PaddingColors -NoNewline
+        }
+        if ($Text.Count -ne 0) {
+            if ($Color.Count -ge $Text.Count) {
+                # the real deal coloring
+                if ($null -eq $BackGroundColor) {
+                    for ($i = 0; $i -lt $Text.Length; $i++) { Write-Host -Object $Text[$i] -ForegroundColor $Color[$i] -NoNewline }
+                } else {
+                    for ($i = 0; $i -lt $Text.Length; $i++) { Write-Host -Object $Text[$i] -ForegroundColor $Color[$i] -BackgroundColor $BackGroundColor[$i] -NoNewline }
+                }
+            } else {
+                if ($null -eq $BackGroundColor) {
+                    for ($i = 0; $i -lt $Color.Length ; $i++) { Write-Host -Object $Text[$i] -ForegroundColor $Color[$i] -NoNewline }
+                    for ($i = $Color.Length; $i -lt $Text.Length; $i++) { Write-Host -Object $Text[$i] -ForegroundColor $DefaultColor -NoNewline }
+                } else {
+                    for ($i = 0; $i -lt $Color.Length ; $i++) { Write-Host -Object $Text[$i] -ForegroundColor $Color[$i] -BackgroundColor $BackGroundColor[$i] -NoNewline }
+                    for ($i = $Color.Length; $i -lt $Text.Length; $i++) { Write-Host -Object $Text[$i] -ForegroundColor $DefaultColor -BackgroundColor $BackGroundColor[0] -NoNewline }
+                }
+            }
+        }
+        if ($RightPaddingLength -gt 0) {
+            Write-Host -Object ([string]$PadCharacter * $RightPaddingLength) @PaddingColors -NoNewline
+        }
+        if ($NoNewLine -eq $true) { Write-Host -NoNewline } else { Write-Host } # Support for no new line
+        for ($i = 0; $i -lt $LinesAfter; $i++) {
+            if ($PaddingWidth -gt 0) {
+                Write-Host -Object $EmptyLine @PaddingColors -NoNewline
+            } else {
+                Write-Host -Object $EmptyLine -NoNewline
             }
         }
     }
-    if ($NoNewLine -eq $true) { Write-Host -NoNewline } else { Write-Host }
-    if ($LinesAfter -ne 0) {
-		if ($PadLeft -gt 0) { $Object = "$($PadCharacter.PadRight($PadLeft,$PadCharacter))`n"
-		} elseif ($PadCenter -gt 0) { $Object = "$($PadCharacter.PadRight($PadCenter,$PadCharacter))`n"
-		} elseif ($PadRight -gt 0) { $Object = "$($PadCharacter.PadRight($PadRight,$PadCharacter))`n"
-		} else { $Object = "`n" }
-    		for ($i = 0; $i -lt $LinesAfter; $i++) {
-			if (($Color) -and ($BackGroundColor)) { Write-Host -Object $Object -ForegroundColor $Color -BackgroundColor $BackGroundColor -NoNewline
-			} elseif (($Color) -and (!$BackGroundColor)) { Write-Host -Object $Object -ForegroundColor $Color -NoNewline
-			} elseif ((!$Color) -and ($BackGroundColor)) { Write-Host -Object $Object -BackgroundColor $BackGroundColor -NoNewline
-			} else { Write-Host -Object $Object -NoNewline } } }
     if ($Text.Count -and $LogFile) {
+        # Save to file
         $TextToFile = ""
-        for ($i = 0; $i -lt $Text.Length; $i++) { $TextToFile += $Text[$i] }
+        for ($i = 0; $i -lt $Text.Length; $i++) {
+            $TextToFile += $Text[$i]
+        }
         $Saved = $false
         $Retry = 0
-        Do {
+        do {
             $Retry++
             try {
-                if ($LogTime) { "[$([datetime]::Now.ToString($DateTimeFormat))] $TextToFile" | Out-File -FilePath $LogFile -Encoding $Encoding -Append -ErrorAction Stop -WhatIf:$false } else { "$TextToFile" | Out-File -FilePath $LogFile -Encoding $Encoding -Append -ErrorAction Stop -WhatIf:$false }
+                if ($LogTime) {
+                    "[$([datetime]::Now.ToString($DateTimeFormat))] $TextToFile" | Out-File -FilePath $LogFile -Encoding $Encoding -Append -ErrorAction Stop -WhatIf:$false
+                } else {
+                    "$TextToFile" | Out-File -FilePath $LogFile -Encoding $Encoding -Append -ErrorAction Stop -WhatIf:$false
+                }
                 $Saved = $true
-            } catch { if ($Saved -eq $false -and $Retry -eq $LogRetry) { $PSCmdlet.WriteError($_) } else { Write-Warning "Write-Color - Couldn't write to log file $($_.Exception.Message). Retrying... ($Retry/$LogRetry)" } }
-        } Until ($Saved -eq $true -or $Retry -ge $LogRetry)
+            } catch {
+                if ($Saved -eq $false -and $Retry -eq $LogRetry) {
+                    Write-Warning "Write-Color - Couldn't write to log file $($_.Exception.Message). Tried ($Retry/$LogRetry))"
+                } else {
+                    Write-Warning "Write-Color - Couldn't write to log file $($_.Exception.Message). Retrying... ($Retry/$LogRetry)"
+                }
+            }
+        } until ($Saved -eq $true -or $Retry -ge $LogRetry)
     }
 }

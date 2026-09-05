@@ -1,8 +1,4 @@
-if ($PSEdition -eq 'Core') {
-    Import-Module PSWriteColor -SkipEditionCheck -Force
-} else {
-    Import-Module PSWriteColor -Force
-}
+Import-Module .\PSWriteColor.psd1 -Force
 
 # Example 1
 Write-Color "[i] ", "Parameter in configuration of ", "EmailParameters.EmailFrom", " exists." -Color White, White, Green, White -ShowTime
@@ -51,3 +47,6 @@ Write-Color -T "My text", " is ", "all colorful" -C Yellow, Red, Green -B Red, G
 # Example 5
 Write-Color -T "My text", " is ", "all colorful" -C Yellow, Red, Green -B Green, Green, Yellow
 Write-Color -T "My text", " is ", "all colorful" -C Yellow, Red, Green -B Red, Green, Green -StartSpaces 2
+
+# Example 6
+Write-Color -T "My text", " is ", "all colorful" -C Yellow, Red, Green -HorizontalCenter

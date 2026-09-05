@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://www.powershellgallery.com/packages/PSWriteColor"><img src="https://img.shields.io/powershellgallery/v/PSWriteColor.svg"></a>
-  <a href="https://www.powershellgallery.com/packages/PSWriteColor"><img src="https://img.shields.io/powershellgallery/vpre/PSWriteColor.svg?label=powershell%20gallery%20preview&colorB=yellow"></a>
+  <a href="https://www.powershellgallery.com/packages/PSWriteColor"><img src="https://img.shields.io/powershellgallery/v/PSWriteColor.svg?label=powershell%20gallery%20preview&colorB=yellow&include_prereleases"></a>
   <a href="https://github.com/EvotecIT/PSWriteColor"><img src="https://img.shields.io/github/license/EvotecIT/PSWriteColor.svg"></a>
 </p>
 
@@ -19,14 +19,45 @@
 
 # PSWriteColor - PowerShell module
 
-Full Description for this project at my [Evotec website](https://evotec.xyz/hub/scripts/pswritecolor/)
-
-# Description
-
 Write-Color is a wrapper around Write-Host allowing you to create nice looking scripts, with colorized output.
+More information for this project at my [Evotec website](https://evotec.xyz/hub/scripts/pswritecolor/).
+
+## Support This Project
+
+If you find this project helpful, please consider supporting its development.
+Your sponsorship will help the maintainers dedicate more time to maintenance and new feature development for everyone.
+
+It takes a lot of time and effort to create and maintain this project.
+By becoming a sponsor, you can help ensure that it stays free and accessible to everyone who needs it.
+
+To become a sponsor, you can choose from the following options:
+
+ - [Become a sponsor via GitHub Sponsors :heart:](https://github.com/sponsors/PrzemyslawKlys)
+ - [Become a sponsor via PayPal :heart:](https://paypal.me/PrzemyslawKlys)
+
+Your sponsorship is completely optional and not required for using this project.
+We want this project to remain open-source and available for anyone to use for free,
+regardless of whether they choose to sponsor it or not.
+
+If you work for a company that uses our .NET libraries or PowerShell Modules,
+please consider asking your manager or marketing team if your company would be interested in supporting this project.
+Your company's support can help us continue to maintain and improve this project for the benefit of everyone.
+
+Thank you for considering supporting this project!
 
 ## ChangeLog
 
+- 1.0.3 - 2025.04.21
+  - 📃 Improves `HorizontalCenter` by AU-Mark
+- 1.0.2 - 2025.04.21
+  - 📃 Added `HorizontalCenter` by AU-Mark
+- 1.0.1 - 2023.04.30
+  - 🐛 Fixes UTF8 issue when publishing to PowerShell Gallery
+- 1.0.0 - 2023.04.23
+  - 📃 Converted tabs to spaces in code (no difference in output)
+  - 📃 Updated documentation
+  - 💡 Added `NoConsoleOutput` to allow only writting to file, and skipping console output
+  - 🐛 Removed throwing exceptions when couldn't write to file (`Write-Warning` will be triggered instead)
 - 0.87.3 - 2021.04.12
   - 💡 Disabled `WhatIf` functionality for Out-File which would prevent logging to file
   - 💡 Added `LogRetry` (2) to provide option to retry logging to file up to X number of times in case issue with saving to file occurs (race condition)
