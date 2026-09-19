@@ -93,4 +93,4 @@ Build-Module -ModuleName 'PSWriteColor' {
 
     New-ConfigurationPublish -Type PowerShellGallery -FilePath $PowerShellGalleryApiKeyPath -Enabled
     New-ConfigurationPublish -Type GitHub -FilePath $GitHubApiKeyPath -UserName 'EvotecIT' -RepositoryName 'PSWriteColor' -GenerateReleaseNotes -Enabled
-} -SkipInstall:$SkipInstall
+} -SkipInstall:$SkipInstall -ExitCode
