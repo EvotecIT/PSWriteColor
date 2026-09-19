@@ -47,6 +47,10 @@ Thank you for considering supporting this project!
 
 ## ChangeLog
 
+- 1.0.4 - pending release
+  - Added fixed-width left, right, and center padding, and corrected horizontal centering in visible console windows.
+  - Fixed console output and logging edge cases, including literal log paths, retry limits, and warnings after failed writes.
+  - Added PowerShell 5.1 and 7 contract tests and an explicit build/publish workflow. Existing command names and positional parameters remain available; new padding parameters can make abbreviated names ambiguous.
 - 1.0.3 - 2025.04.21
   - 📃 Improves `HorizontalCenter` by AU-Mark
 - 1.0.2 - 2025.04.21
