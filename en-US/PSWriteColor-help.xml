@@ -218,6 +218,28 @@ File-write failures produce warnings after up to LogRetry attempts.</maml:para>
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="16" aliases="none">
+          <maml:name>OutputStream</maml:name>
+          <maml:description>
+            <maml:para>Destination for messages: Host (default), Verbose, or Information.&#xD;
+Verbose and Information emit one joined text record per call and respect their&#xD;
+normal PowerShell preferences. Use -Verbose or -InformationAction Continue to display them.&#xD;
+ShowTime is supported; console colors, padding, indentation, blank lines, centering,&#xD;
+and NoNewLine apply only to Host. NoConsoleOutput suppresses any selected message&#xD;
+stream while retaining file logging. No messages are written to success output.</maml:para>
+          </maml:description>
+          <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" variableLength="false">Host</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">Verbose</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">Information</command:parameterValue>
+          </command:parameterValueGroup>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>Host</dev:defaultValue>
+        </command:parameter>
         <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="13" aliases="PC">
           <maml:name>PadCenter</maml:name>
           <maml:description>
@@ -520,6 +542,28 @@ File-write failures produce warnings after up to LogRetry attempts.</maml:para>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="16" aliases="none">
+        <maml:name>OutputStream</maml:name>
+        <maml:description>
+          <maml:para>Destination for messages: Host (default), Verbose, or Information.&#xD;
+Verbose and Information emit one joined text record per call and respect their&#xD;
+normal PowerShell preferences. Use -Verbose or -InformationAction Continue to display them.&#xD;
+ShowTime is supported; console colors, padding, indentation, blank lines, centering,&#xD;
+and NoNewLine apply only to Host. NoConsoleOutput suppresses any selected message&#xD;
+stream while retaining file logging. No messages are written to success output.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">String</command:parameterValue>
+        <command:parameterValueGroup>
+          <command:parameterValue required="false" variableLength="false">Host</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">Verbose</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">Information</command:parameterValue>
+        </command:parameterValueGroup>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>Host</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="false" globbing="false" pipelineInput="False" position="13" aliases="PC">
         <maml:name>PadCenter</maml:name>

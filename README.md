@@ -22,6 +22,26 @@
 Write-Color is a wrapper around Write-Host allowing you to create nice looking scripts, with colorized output.
 More information for this project at my [Evotec website](https://evotec.xyz/hub/scripts/pswritecolor/).
 
+## Messages in automation
+
+`Write-Color` uses colored host output by default. Select a diagnostic stream when
+running in an environment that captures PowerShell messages instead of a console:
+
+```powershell
+Write-Color 'Processing ', '25', ' contacts' -OutputStream Verbose -Verbose
+Write-Color 'Processing ', '25', ' contacts' -OutputStream Information -InformationAction Continue
+```
+
+Each call writes one joined message to the selected stream, leaving success output
+available for returned objects. Verbose and Information follow normal PowerShell
+preferences. Azure Automation requires verbose job logging to retain Verbose records.
+Information stream capture depends on the host.
+
+`-ShowTime` adds a timestamp to either message stream. Colors, indentation, padding,
+blank lines, centering, and `-NoNewLine` apply to Host output only. `-NoConsoleOutput`
+suppresses the selected message stream; `-LogFile` still appends the text to the file.
+No host detection changes the stream automatically.
+
 ## Support This Project
 
 If you find this project helpful, please consider supporting its development.

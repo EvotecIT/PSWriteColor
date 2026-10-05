@@ -63,6 +63,14 @@ function Write-Color {
     .PARAMETER NoConsoleOutput
     Switch to not output to console. Default all output goes to console.
 
+    .PARAMETER OutputStream
+    Destination for messages: Host (default), Verbose, or Information.
+    Verbose and Information emit one joined text record per call and respect their
+    normal PowerShell preferences. Use -Verbose or -InformationAction Continue to display them.
+    ShowTime is supported; console colors, padding, indentation, blank lines, centering,
+    and NoNewLine apply only to Host. NoConsoleOutput suppresses any selected message
+    stream while retaining file logging. No messages are written to success output.
+
     .PARAMETER HorizontalCenter
     Centers single-line text, including its padding, in the visible host window. Odd extra space goes on the right.
     Indentation and timestamps are added after centering. If the host cannot report its window width, no centering spaces are added.
@@ -157,7 +165,8 @@ function Write-Color {
         [alias('PL')][ValidateRange(0, [int]::MaxValue)][int] $PadLeft = 0,
         [alias('PC')][ValidateRange(0, [int]::MaxValue)][int] $PadCenter = 0,
         [alias('PR')][ValidateRange(0, [int]::MaxValue)][int] $PadRight = 0,
-        [alias('PadChar')][char] $PadCharacter = ' '
+        [alias('PadChar')][char] $PadCharacter = ' ',
+        [ValidateSet('Host', 'Verbose', 'Information')][string] $OutputStream = 'Host'
     )
     if (@($PadLeft, $PadCenter, $PadRight | Where-Object { $_ -gt 0 }).Count -gt 1) {
         throw 'Specify only one of PadLeft, PadCenter, or PadRight with a positive width.'
@@ -169,7 +178,18 @@ function Write-Color {
     # Handle Ignore at this boundary: Windows PowerShell 5.1 cannot pass an inherited
     # Ignore preference through to nested Write-Host calls.
     $SuppressConsole = $NoConsoleOutput -or $PSBoundParameters['InformationAction'] -eq [System.Management.Automation.ActionPreference]::Ignore
-    if (-not $SuppressConsole) {
+    if (-not $NoConsoleOutput -and $OutputStream -ne 'Host') {
+        $Message = $TextToFile
+        if ($ShowTime) {
+            $Message = "[$([datetime]::Now.ToString($DateTimeFormat))] $Message"
+        }
+        if ($OutputStream -eq 'Verbose') {
+            Write-Verbose -Message $Message
+        } elseif (-not $SuppressConsole) {
+            Write-Information -MessageData $Message -Tags 'WriteColor'
+        }
+    }
+    if (-not $SuppressConsole -and $OutputStream -eq 'Host') {
         if ($null -eq $Color -or $Color.Count -eq 0) {
             Write-Error 'Color must contain at least one foreground color.'
             return
