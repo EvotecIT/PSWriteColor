@@ -11,7 +11,7 @@ Write-Color is a wrapper around Write-Host delivering a lot of additional featur
 ## SYNTAX
 ### __AllParameterSets
 ```powershell
-Write-Color [[-Text] <string[]>] [[-Color] <ConsoleColor[]>] [[-BackGroundColor] <ConsoleColor[]>] [[-StartTab] <int>] [[-LinesBefore] <int>] [[-LinesAfter] <int>] [[-StartSpaces] <int>] [[-LogFile] <string>] [[-DateTimeFormat] <string>] [[-LogTime] <bool>] [[-LogRetry] <int>] [[-Encoding] <string>] [[-PadLeft] <int>] [[-PadCenter] <int>] [[-PadRight] <int>] [[-PadCharacter] <char>] [-ShowTime] [-NoNewLine] [-HorizontalCenter] [-NoConsoleOutput] [<CommonParameters>]
+Write-Color [[-Text] <string[]>] [[-Color] <ConsoleColor[]>] [[-BackGroundColor] <ConsoleColor[]>] [[-StartTab] <int>] [[-LinesBefore] <int>] [[-LinesAfter] <int>] [[-StartSpaces] <int>] [[-LogFile] <string>] [[-DateTimeFormat] <string>] [[-LogTime] <bool>] [[-LogRetry] <int>] [[-Encoding] <string>] [[-PadLeft] <int>] [[-PadCenter] <int>] [[-PadRight] <int>] [[-PadCharacter] <char>] [[-OutputStream] <string>] [-ShowTime] [-NoNewLine] [-HorizontalCenter] [-NoConsoleOutput] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -290,6 +290,27 @@ Possible values:
 Required: False
 Position: named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -OutputStream
+Destination for messages: Host (default), Verbose, or Information.
+Verbose and Information emit one joined text record per call and respect their
+normal PowerShell preferences. Use -Verbose or -InformationAction Continue to display them.
+ShowTime is supported; console colors, padding, indentation, blank lines, centering,
+and NoNewLine apply only to Host. NoConsoleOutput suppresses any selected message
+stream while retaining file logging. No messages are written to success output.
+
+```yaml
+Type: String
+Parameter Sets: __AllParameterSets
+Aliases: None
+Possible values: Host, Verbose, Information
+
+Required: False
+Position: 16
+Default value: Host
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
