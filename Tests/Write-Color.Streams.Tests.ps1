@@ -8,6 +8,20 @@ BeforeAll {
 }
 
 Describe 'Write-Color message streams' {
+    It 'emits one plain success string without enabling diagnostic preferences' {
+        $records = @(Write-Color 'one', 'two' -OutputStream Output -Verbose:$false -InformationAction Ignore *>&1)
+        $records.Count | Should -Be 1
+        $records[0] | Should -BeOfType ([string])
+        $records[0] | Should -BeExactly 'onetwo'
+    }
+
+    It 'writes the same joined text to output and the log file' {
+        $log = Join-Path $TestDrive 'output-and-file.log'
+        $records = @(Write-Color 'one', 'two' -OutputStream Output -LogFile $log -LogTime $false)
+        $records | Should -BeExactly 'onetwo'
+        Get-Content -LiteralPath $log | Should -BeExactly 'onetwo'
+    }
+
     It 'emits a complete verbose record without success output' {
         $records = @(Write-Color 'one', 'two' -OutputStream Verbose -Verbose 4>&1)
         $records.Count | Should -Be 1
@@ -26,7 +40,7 @@ Describe 'Write-Color message streams' {
     }
 
     It 'keeps file logging when the selected stream is suppressed' -ForEach @(
-        @{ Stream = 'Verbose' }, @{ Stream = 'Information' }
+        @{ Stream = 'Output' }, @{ Stream = 'Verbose' }, @{ Stream = 'Information' }
     ) {
         $log = Join-Path $TestDrive "$Stream.log"
         $records = @(Write-Color 'one', 'two' -OutputStream $Stream -NoConsoleOutput -Verbose -InformationAction Continue -LogFile $log -LogTime $false *>&1)
@@ -34,10 +48,12 @@ Describe 'Write-Color message streams' {
         Get-Content -LiteralPath $log | Should -BeExactly 'onetwo'
     }
 
-    It 'uses timestamps but ignores terminal layout for record streams' {
-        $records = @(Write-Color 'text' -OutputStream Verbose -Verbose -ShowTime -DateTimeFormat "'time'" -StartTab 2 -StartSpaces 2 -PadRight 20 -LinesBefore 2 -LinesAfter 2 -HorizontalCenter -NoNewLine 4>&1)
+    It 'uses timestamps but ignores terminal layout for <Stream> messages' -ForEach @(
+        @{ Stream = 'Output' }, @{ Stream = 'Verbose' }, @{ Stream = 'Information' }
+    ) {
+        $records = @(Write-Color 'text' -OutputStream $Stream -Verbose -InformationAction Continue -ShowTime -DateTimeFormat "'time'" -StartTab 2 -StartSpaces 2 -PadRight 20 -LinesBefore 2 -LinesAfter 2 -HorizontalCenter -NoNewLine *>&1)
         $records.Count | Should -Be 1
-        $records[0].Message | Should -BeExactly '[time] text'
+        "$($records[0])" | Should -BeExactly '[time] text'
     }
 
     It 'does not let information suppression silence the verbose stream' {

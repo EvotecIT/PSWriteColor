@@ -64,12 +64,14 @@ function Write-Color {
     Switch to not output to console. Default all output goes to console.
 
     .PARAMETER OutputStream
-    Destination for messages: Host (default), Verbose, or Information.
+    Destination for messages: Host (default), Output, Verbose, or Information.
+    Output emits one joined string per call on the success stream, so assignments
+    and pipelines capture these messages as data. Use it for Azure Automation job output.
     Verbose and Information emit one joined text record per call and respect their
     normal PowerShell preferences. Use -Verbose or -InformationAction Continue to display them.
     ShowTime is supported; console colors, padding, indentation, blank lines, centering,
     and NoNewLine apply only to Host. NoConsoleOutput suppresses any selected message
-    stream while retaining file logging. No messages are written to success output.
+    stream while retaining file logging. Only Output writes messages to success output.
 
     .PARAMETER HorizontalCenter
     Centers single-line text, including its padding, in the visible host window. Odd extra space goes on the right.
@@ -166,7 +168,7 @@ function Write-Color {
         [alias('PC')][ValidateRange(0, [int]::MaxValue)][int] $PadCenter = 0,
         [alias('PR')][ValidateRange(0, [int]::MaxValue)][int] $PadRight = 0,
         [alias('PadChar')][char] $PadCharacter = ' ',
-        [ValidateSet('Host', 'Verbose', 'Information')][string] $OutputStream = 'Host'
+        [ValidateSet('Host', 'Output', 'Verbose', 'Information')][string] $OutputStream = 'Host'
     )
     if (@($PadLeft, $PadCenter, $PadRight | Where-Object { $_ -gt 0 }).Count -gt 1) {
         throw 'Specify only one of PadLeft, PadCenter, or PadRight with a positive width.'
@@ -183,7 +185,9 @@ function Write-Color {
         if ($ShowTime) {
             $Message = "[$([datetime]::Now.ToString($DateTimeFormat))] $Message"
         }
-        if ($OutputStream -eq 'Verbose') {
+        if ($OutputStream -eq 'Output') {
+            Write-Output -InputObject $Message
+        } elseif ($OutputStream -eq 'Verbose') {
             Write-Verbose -Message $Message
         } elseif (-not $SuppressConsole) {
             Write-Information -MessageData $Message -Tags 'WriteColor'
