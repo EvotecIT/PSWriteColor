@@ -179,7 +179,7 @@ function Write-Color {
     $TextToFile = $Text -join ''
     # Handle Ignore at this boundary: Windows PowerShell 5.1 cannot pass an inherited
     # Ignore preference through to nested Write-Host calls.
-    $SuppressConsole = $NoConsoleOutput -or $PSBoundParameters['InformationAction'] -eq [System.Management.Automation.ActionPreference]::Ignore
+    $SuppressConsole = $NoConsoleOutput -or $PSBoundParameters['InformationAction'] -eq [System.Management.Automation.ActionPreference]::Ignore -or $InformationPreference -eq [System.Management.Automation.ActionPreference]::Ignore
     if (-not $NoConsoleOutput -and $OutputStream -ne 'Host') {
         $Message = $TextToFile
         if ($ShowTime) {

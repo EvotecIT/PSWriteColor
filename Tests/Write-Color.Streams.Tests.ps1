@@ -8,6 +8,25 @@ BeforeAll {
 }
 
 Describe 'Write-Color message streams' {
+    It 'honors inherited information suppression for <Stream> without losing file logs' -ForEach @(
+        @{ Stream = 'Host' }, @{ Stream = 'Information' }
+    ) {
+        $log = Join-Path $TestDrive "$Stream-inherited.log"
+        $records = @(& (Get-Module PSWriteColor) {
+            param($Stream, $LogPath)
+            function Invoke-NestedColor {
+                [CmdletBinding()]
+                param($Stream, $LogPath)
+                Write-Color 'one', 'two' -OutputStream $Stream -LogFile $LogPath -LogTime $false
+            }
+            Invoke-NestedColor -Stream $Stream -LogPath $LogPath -InformationAction Ignore *>&1
+        } $Stream $log)
+        $records.Count | Should -Be 0
+        Get-Content -LiteralPath $log | Should -BeExactly 'onetwo'
+        $after = @(Write-Color 'visible' -InformationAction Continue 6>&1)
+        ($after.MessageData.Message -join '') | Should -Match 'visible'
+    }
+
     It 'emits one plain success string without enabling diagnostic preferences' {
         $records = @(Write-Color 'one', 'two' -OutputStream Output -Verbose:$false -InformationAction Ignore *>&1)
         $records.Count | Should -Be 1
