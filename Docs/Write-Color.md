@@ -295,18 +295,20 @@ Accept wildcard characters: False
 ```
 
 ### -OutputStream
-Destination for messages: Host (default), Verbose, or Information.
+Destination for messages: Host (default), Output, Verbose, or Information.
+Output emits one joined string per call on the success stream, so assignments
+and pipelines capture these messages as data. Use it for Azure Automation job output.
 Verbose and Information emit one joined text record per call and respect their
 normal PowerShell preferences. Use -Verbose or -InformationAction Continue to display them.
 ShowTime is supported; console colors, padding, indentation, blank lines, centering,
 and NoNewLine apply only to Host. NoConsoleOutput suppresses any selected message
-stream while retaining file logging. No messages are written to success output.
+stream while retaining file logging. Only Output writes messages to success output.
 
 ```yaml
 Type: String
 Parameter Sets: __AllParameterSets
 Aliases: None
-Possible values: Host, Verbose, Information
+Possible values: Host, Output, Verbose, Information
 
 Required: False
 Position: 16

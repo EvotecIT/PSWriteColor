@@ -24,20 +24,23 @@ More information for this project at my [Evotec website](https://evotec.xyz/hub/
 
 ## Messages in automation
 
-`Write-Color` uses colored host output by default. Select a diagnostic stream when
+`Write-Color` uses colored host output by default. Select a message stream when
 running in an environment that captures PowerShell messages instead of a console:
 
 ```powershell
+Write-Color 'Processing ', '25', ' contacts' -OutputStream Output
 Write-Color 'Processing ', '25', ' contacts' -OutputStream Verbose -Verbose
 Write-Color 'Processing ', '25', ' contacts' -OutputStream Information -InformationAction Continue
 ```
 
-Each call writes one joined message to the selected stream, leaving success output
-available for returned objects. Verbose and Information follow normal PowerShell
-preferences. Azure Automation requires verbose job logging to retain Verbose records.
-Information stream capture depends on the host.
+Each call writes one joined message to the selected stream. `Output` writes a plain
+string to the success stream and works with Azure Automation job output without
+enabling verbose logging. Assignments and pipelines capture these strings as data.
+Verbose and Information leave success output available for returned objects and
+follow normal PowerShell preferences. Azure Automation requires verbose job logging
+to retain Verbose records and does not support the Information stream.
 
-`-ShowTime` adds a timestamp to either message stream. Colors, indentation, padding,
+`-ShowTime` adds a timestamp to message streams. Colors, indentation, padding,
 blank lines, centering, and `-NoNewLine` apply to Host output only. `-NoConsoleOutput`
 suppresses the selected message stream; `-LogFile` still appends the text to the file.
 No host detection changes the stream automatically.
@@ -104,7 +107,7 @@ Import-Module PSWriteColor
 
 `Write-Color` joins the supplied text segments without inserting separators and writes each segment with its assigned color. When there are fewer colors than segments, the remaining segments use the first color. Background colors, when supplied, must have the same count as foreground colors. `Write-Colour` is an alias; `wc` is not exported.
 
-The command writes host output on PowerShell's information stream and returns no objects on the success pipeline. Use it for status messages and prompts, rather than data that another command needs to process. `-NoNewLine` lets the next message continue on the same console line.
+By default, the command writes host output on PowerShell's information stream and returns no objects on the success pipeline. Use it for status messages and prompts. `-OutputStream Output` returns plain message strings on the success pipeline. `-NoNewLine` lets the next host message continue on the same console line.
 
 `-LogFile` appends the original joined text to a literal filename, optionally prefixed with a timestamp. Console spacing, padding, and `-NoNewLine` do not change log entries. Parent directories must exist. `-LogRetry` is the maximum number of attempts, including the first; exhausted attempts produce warnings. Logging still runs under `$WhatIfPreference`, and `-NoConsoleOutput` suppresses only console output.
 
